@@ -75,8 +75,30 @@ using SEP3_Tier1.Shared;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/counter")]
-    public partial class Counter : Microsoft.AspNetCore.Components.ComponentBase
+#nullable restore
+#line 3 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Login.razor"
+using Models;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Login.razor"
+using Data;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 5 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Login.razor"
+using Data.Login;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(LoginLayout))]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/login")]
+    public partial class Login : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -84,18 +106,37 @@ using SEP3_Tier1.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 9 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Counter.razor"
+#line 34 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Login.razor"
        
-    private int currentCount = 0;
+    private User user = new User();
+    private bool loading;
+    private bool showAuthErrorTxt = false;
+    private string authErrorTxt = "";
 
-    private void IncrementCount()
+    private async void OnValidSubmit()
     {
-        currentCount++;
+        loading = true;
+        try
+        {
+            UserService.setUser((User)await GymService.login(user.username, user.password));
+            if (UserService.getUser() != null)
+            {
+                NavigationManager.NavigateTo("/");
+            }
+        }
+        catch (Exception e)
+        {
+            loading = false;
+            StateHasChanged();
+        }
     }
+
 
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
     }
 }
 #pragma warning restore 1591
