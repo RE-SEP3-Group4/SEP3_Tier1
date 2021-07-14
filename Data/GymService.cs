@@ -39,7 +39,7 @@ namespace SEP3_Tier1.Data
         /// </summary>
         /// <param name="username">The new username of the user.</param>
         /// <param name="password">The new password of the user.</param>
-        /// <returns>A string with a success or error message.</returns>
+        /// <returns>A boolean that is true if the command was successful.</returns>
         public static async Task<bool> register(string username, string password)
         {
             using (HttpResponseMessage response = await ApiHelper.GetApiClient().PostAsJsonAsync("/user?username=" + username + "&password=" + password, ""))
@@ -61,7 +61,7 @@ namespace SEP3_Tier1.Data
         /// <param name="id">The id of the user that is changing its details.</param>
         /// <param name="username">The new/old username depending on the wishes of the user.</param>
         /// <param name="password">The new/old password depending on the wishes of the user.</param>
-        /// <returns>A string with a success or error message.</returns>
+        /// <returns>A boolean that is true if the command was successful.</returns>
         public static async Task<bool> updateUser(int id, string username, string password)
         {
             using (HttpResponseMessage response = await ApiHelper.GetApiClient().PutAsJsonAsync("/user?username=" + username + "&password=" + password + "&id=" + id, ""))
