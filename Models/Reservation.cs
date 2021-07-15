@@ -7,7 +7,7 @@ namespace SEP3_Tier1.Models
 {
     /// <summary>
     /// This class holds the information regarding gym reservation.
-    /// Reservations contain the user id and a date intager with the ddmmyyhhmm format.
+    /// Reservations contain the user id and a date integer with the ddmmyyhhmm format.
     /// Reservations are made in segments of one hour.
     /// </summary>
     public class Reservation
