@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace SEP3_Tier1.Shared
+namespace SEP3_Tier1.Pages
 {
     #line hidden
     using System;
@@ -75,7 +75,15 @@ using SEP3_Tier1.Shared;
 #line default
 #line hidden
 #nullable disable
-    public partial class NavMenu : Microsoft.AspNetCore.Components.ComponentBase
+#nullable restore
+#line 2 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Bookings.razor"
+using Models;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/bookings")]
+    public partial class Bookings : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -83,16 +91,12 @@ using SEP3_Tier1.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 38 "C:\Users\javic\source\repos\SEP3_Tier1\Shared\NavMenu.razor"
+#line 31 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Bookings.razor"
        
-    private bool collapseNavMenu = true;
+    private bool loading;
+    private IEnumerable<Reservation> reservations;
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
+    void DeleteBooking(int userId) { }
 
 #line default
 #line hidden
