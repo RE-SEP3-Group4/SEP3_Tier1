@@ -75,8 +75,15 @@ using SEP3_Tier1.Shared;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/counter")]
-    public partial class Counter : Microsoft.AspNetCore.Components.ComponentBase
+#nullable restore
+#line 2 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Bookings.razor"
+using Models;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/bookings")]
+    public partial class Bookings : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -84,14 +91,12 @@ using SEP3_Tier1.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 9 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Counter.razor"
+#line 31 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Bookings.razor"
        
-    private int currentCount = 0;
+    private bool loading;
+    private IEnumerable<Reservation> reservations;
 
-    private void IncrementCount()
-    {
-        currentCount++;
-    }
+    void DeleteBooking(int userId) { }
 
 #line default
 #line hidden
