@@ -9,7 +9,7 @@ namespace SEP3_Tier1.Data
     /// <summary>
     /// This class is used to create and allow an HTTP client to be called when needed.
     /// </summary>
-    public class ApiHelper
+    public sealed class ApiHelper
     {
         private static HttpClient ApiClient = null;
 

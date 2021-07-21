@@ -10,6 +10,7 @@ namespace SEP3_Tier1.Models
     /// Reservations contain the user id and a date integer with the ddmmyyhhmm format.
     /// Reservations are made in segments of one hour.
     /// </summary>
+    [Serializable]
     public class Reservation
     {
         int userID { get; set; }

@@ -9,6 +9,7 @@ namespace SEP3_Tier1.Models
     /// This class holds the information regarding gym payments.
     /// Payments contain the user id, a date integer with the ddmmyyhhmm format and a period of time it is valid for.
     /// </summary>
+    [Serializable]
     public class Payment
     {
         int userID { get; set; }

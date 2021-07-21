@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using SEP3_Tier1.Models;
 
@@ -11,7 +12,7 @@ namespace SEP3_Tier1.Data
     /// This is class is used for communicating with the second tier.
     /// It has all the methods to communicate with the Web Service.
     /// </summary>
-    public class GymService
+    public static class UserService
     {
         /// <summary>
         /// Allows the user to login.
@@ -19,9 +20,9 @@ namespace SEP3_Tier1.Data
         /// <param name="username">The username of the user.</param>
         /// <param name="password">The password of the user.</param>
         /// <returns>A user object if the login is successful.</returns>
-        public static async Task<User> login(string username, string password)
+        public static async Task<User> Login(string username, string password)
         {
-            using (HttpResponseMessage response = await ApiHelper.GetApiClient().GetAsync("/user?username=" + username + "&password=" + password))
+            using (HttpResponseMessage response = await ApiHelper.GetApiClient().GetAsync($"/user?username={username}&password={password}"))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -40,9 +41,12 @@ namespace SEP3_Tier1.Data
         /// <param name="username">The new username of the user.</param>
         /// <param name="password">The new password of the user.</param>
         /// <returns>A boolean that is true if the command was successful.</returns>
-        public static async Task<bool> register(string username, string password)
+        public static async Task<bool> Register(string username, string password)
         {
-            using (HttpResponseMessage response = await ApiHelper.GetApiClient().PostAsJsonAsync("/user?username=" + username + "&password=" + password, ""))
+            User user = new User(0, username, password, 0);
+            string jsonUser = Newtonsoft.Json.JsonConvert.SerializeObject(user);
+            StringContent content = new StringContent(jsonUser, Encoding.UTF8, "application/json");
+            using (HttpResponseMessage response = await ApiHelper.GetApiClient().PostAsJsonAsync("/user", content))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -62,9 +66,12 @@ namespace SEP3_Tier1.Data
         /// <param name="username">The new/old username depending on the wishes of the user.</param>
         /// <param name="password">The new/old password depending on the wishes of the user.</param>
         /// <returns>A boolean that is true if the command was successful.</returns>
-        public static async Task<bool> updateUser(int id, string username, string password)
+        public static async Task<bool> UpdateUser(int id, string username, string password)
         {
-            using (HttpResponseMessage response = await ApiHelper.GetApiClient().PutAsJsonAsync("/user?username=" + username + "&password=" + password + "&id=" + id, ""))
+            User user = new User(id, username, password, 0);
+            string jsonUser = Newtonsoft.Json.JsonConvert.SerializeObject(user);
+            StringContent content = new StringContent(jsonUser, Encoding.UTF8, "application/json");
+            using (HttpResponseMessage response = await ApiHelper.GetApiClient().PutAsJsonAsync("/user?id=" + id, content))
             {
                 if (response.IsSuccessStatusCode)
                 {
