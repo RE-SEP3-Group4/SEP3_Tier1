@@ -6,25 +6,26 @@
 <div class="card mt-4">
     <h4 class="card-header">Bookings</h4>
     <div class="card-body">
-
+       
         @if (loading)
         {
             <div class="spinner-border spinner-border-sm"></div>
         }
         @if (reservations != null)
         {
-            <ul>
-                @foreach (var reservation in reservations)
-                {
-                    <tr>
-                        <td>@reservation.date</td>
-                        <td>@reservation.userId</td>
-                        <td>|
-                            <a class="btn btn-danger" @onclick="() => DeleteBooking(reservation.userId)">Delete</a>
-                        </td>
-                    </tr>
-                }
-            </ul>
+    <ul>
+        <!--
+    @foreach (var reservation in reservations)
+    {
+        <tr>
+            <td>@reservation.date</td>
+            <td>@reservation.userId</td>
+            <td>|
+                <a class="btn btn-danger" @onclick="() => DeleteBooking(reservation.userId)">Delete</a>
+            </td>
+        </tr>
+    }-->
+    </ul>
         }
     </div>
 </div>

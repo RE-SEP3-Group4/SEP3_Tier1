@@ -12,7 +12,7 @@ namespace SEP3_Tier1.Data
     /// This is class is used for communicating with the second tier.
     /// It has all the methods to communicate with the Web Service.
     /// </summary>
-    public static class UserService
+    public static class UserManager
     {
         /// <summary>
         /// Allows the user to login.

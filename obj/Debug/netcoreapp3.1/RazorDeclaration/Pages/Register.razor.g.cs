@@ -13,84 +13,84 @@ namespace SEP3_Tier1.Pages
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
+#line 1 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
+#line 2 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
+#line 3 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
+#line 4 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
+#line 5 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
+#line 6 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
+#line 7 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
+#line 8 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
 using SEP3_Tier1;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
+#line 9 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
 using SEP3_Tier1.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Register.razor"
+#line 2 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\Register.razor"
 using Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Register.razor"
+#line 3 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\Register.razor"
 using Data;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Register.razor"
+#line 4 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\Register.razor"
 using Data.Login;
 
 #line default
@@ -106,9 +106,9 @@ using Data.Login;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 35 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Register.razor"
+#line 35 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\Register.razor"
        
-    private User user = new User();
+    private User user;
     private bool loading;
 
     private async void OnValidSubmit()
@@ -117,7 +117,7 @@ using Data.Login;
 
         try
         {
-            await GymService.register(user.username, user.password);
+            await UserManager.Register(user.username, user.password);
             NavigationManager.NavigateTo("/login");
         }catch(Exception e)
         {

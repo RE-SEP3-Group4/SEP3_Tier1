@@ -33,7 +33,7 @@
     </div>
 </div>
 @code {
-    private User user = new User();
+    private User user;
     private bool loading;
 
     private async void OnValidSubmit()
@@ -42,7 +42,7 @@
 
         try
         {
-            await GymService.register(user.username, user.password);
+            await UserManager.Register(user.username, user.password);
             NavigationManager.NavigateTo("/login");
         }catch(Exception e)
         {

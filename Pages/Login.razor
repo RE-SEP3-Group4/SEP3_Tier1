@@ -32,7 +32,7 @@
     </div>
 </div>
 @code {
-    private User user = new User();
+    private User user;
     private bool loading;
     private bool showAuthErrorTxt = false;
     private string authErrorTxt = "";
@@ -42,7 +42,7 @@
         loading = true;
         try
         {
-            UserService.setUser((User)await GymService.login(user.username, user.password));
+            UserService.setUser((User)await UserManager.Login(user.username, user.password));
             if (UserService.getUser() != null)
             {
                 NavigationManager.NavigateTo("/");

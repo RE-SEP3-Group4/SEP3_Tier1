@@ -50,7 +50,7 @@ namespace SEP3_Tier1.Data.Login
             if(user != null)
             {
                 claims.Add(new Claim(ClaimTypes.Name, user.username));
-                claims.Add(new Claim("securityLevel", user.securityLevel));
+                //claims.Add(new Claim("securityLevel", user.securityLevel));
                 identity = new ClaimsIdentity(claims, "apiauth_type");
                 return identity;
             }

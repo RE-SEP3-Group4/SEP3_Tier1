@@ -16,6 +16,7 @@ namespace SEP3_Tier1.Models
         public string password { get; set; }
         public int securityLevel { get; set; }
 
+
         public User(int id, string username, string password, int securityLevel)
         {
             this.id = id;
