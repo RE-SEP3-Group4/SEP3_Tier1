@@ -17,6 +17,7 @@ namespace SEP3_Tier1
     {
         public Startup(IConfiguration configuration)
         {
+            ApiHelper.InitializeClient();
             Configuration = configuration;
         }
 
@@ -28,7 +29,6 @@ namespace SEP3_Tier1
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

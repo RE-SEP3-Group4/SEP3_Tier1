@@ -108,7 +108,7 @@ using Data.Login;
 #nullable restore
 #line 34 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\Login.razor"
        
-    private User user;
+    private User user = new User();
     private bool loading;
     private bool showAuthErrorTxt = false;
     private string authErrorTxt = "";
@@ -118,7 +118,7 @@ using Data.Login;
         loading = true;
         try
         {
-            UserService.setUser((User)await UserManager.Login(user.username, user.password));
+            UserService.setUser((User) await UserManager.Login(user.username, user.password));
             if (UserService.getUser() != null)
             {
                 NavigationManager.NavigateTo("/");
@@ -126,11 +126,11 @@ using Data.Login;
         }
         catch (Exception e)
         {
+            Console.WriteLine(e);
             loading = false;
             StateHasChanged();
         }
     }
-
 
 #line default
 #line hidden

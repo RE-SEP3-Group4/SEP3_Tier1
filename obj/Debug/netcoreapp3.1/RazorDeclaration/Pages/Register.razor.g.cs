@@ -119,7 +119,8 @@ using Data.Login;
         {
             await UserManager.Register(user.username, user.password);
             NavigationManager.NavigateTo("/login");
-        }catch(Exception e)
+        }
+        catch(Exception e)
         {
             StateHasChanged();
         }

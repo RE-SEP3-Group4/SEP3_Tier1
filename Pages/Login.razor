@@ -32,7 +32,7 @@
     </div>
 </div>
 @code {
-    private User user;
+    private User user = new User();
     private bool loading;
     private bool showAuthErrorTxt = false;
     private string authErrorTxt = "";
@@ -42,17 +42,17 @@
         loading = true;
         try
         {
-            UserService.setUser((User)await UserManager.Login(user.username, user.password));
-            if (UserService.getUser() != null)
+            UserService.SetUser((User) await UserManager.Login(user.username, user.password));
+            if (UserService.GetUser() != null)
             {
                 NavigationManager.NavigateTo("/");
             }
         }
         catch (Exception e)
         {
+            Console.WriteLine(e);
             loading = false;
             StateHasChanged();
         }
     }
-
 }

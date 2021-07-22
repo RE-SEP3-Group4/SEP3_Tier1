@@ -21,23 +21,23 @@ namespace SEP3_Tier1.Data.Login
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             ClaimsIdentity identity = new ClaimsIdentity();
-            identity = SetupClaimsForUser(UserService.getUser());
+            identity = SetupClaimsForUser(UserService.GetUser());
             ClaimsPrincipal cashedClaimsPrincipal = new ClaimsPrincipal(identity);
             return await Task.FromResult(new AuthenticationState(cashedClaimsPrincipal));
         }
-        public async Task validateLogin(User user)
+        public async Task ValidateLogin(User user)
         {
             ClaimsIdentity identity = new ClaimsIdentity();
             identity = SetupClaimsForUser(user);
             string serializedData = JsonSerializer.Serialize(user);
             await jSRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", serializedData);
-            UserService.setUser(user);
+            UserService.SetUser(user);
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(new ClaimsPrincipal(identity))));
         }
 
         public void LogOut()
         {
-            UserService.setUser(null);
+            UserService.SetUser(null);
             var user = new ClaimsPrincipal(new ClaimsIdentity());
             jSRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", "");
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));

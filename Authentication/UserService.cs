@@ -10,9 +10,9 @@ namespace SEP3_Tier1.Data.Login
     {
         public static User user = null;
 
-        public static User getUser() => user;
+        public static User GetUser() => user;
 
-        public static void setUser(User input)
+        public static void SetUser(User input)
         {
             user = input;
         }

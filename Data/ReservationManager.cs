@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SEP3_Tier1.Data
 {
-    public class ReservationService
+    public class ReservationManager
     {
         /// <summary>
         /// This method gets the reservations for a specific user.
@@ -16,7 +16,7 @@ namespace SEP3_Tier1.Data
         /// <returns>A list of reservations.</returns>
         public static async Task<List<Reservation>> GetReservations(int userID)
         {
-            using (HttpResponseMessage response = await ApiHelper.GetApiClient().GetAsync("/user?userID=" + userID))
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync("/user?userID=" + userID))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -37,7 +37,7 @@ namespace SEP3_Tier1.Data
         /// <returns>A boolean that is true if the command was successful.</returns>
         public static async Task<bool> CreateReservation(int userID, int date)
         {
-            using (HttpResponseMessage response = await ApiHelper.GetApiClient().PostAsJsonAsync("/user?userID=" + userID + "&date=" + date, ""))
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.PostAsJsonAsync("/user?userID=" + userID + "&date=" + date, ""))
             {
                 if (response.IsSuccessStatusCode)
                 {
