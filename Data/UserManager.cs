@@ -9,8 +9,7 @@ using SEP3_Tier1.Models;
 namespace SEP3_Tier1.Data
 {
     /// <summary>
-    /// This is class is used for communicating with the second tier.
-    /// It has all the methods to communicate with the Web Service.
+    /// This is class is used for the comunication with the second tier regarding the User class.
     /// </summary>
     public static class UserManager
     {
@@ -73,7 +72,7 @@ namespace SEP3_Tier1.Data
             User user = new User(id, username, password, 0);
             string jsonUser = Newtonsoft.Json.JsonConvert.SerializeObject(user);
             StringContent content = new StringContent(jsonUser, Encoding.UTF8, "application/json");
-            using (HttpResponseMessage response = await ApiHelper.ApiClient.PutAsJsonAsync($"{url}/user?id={id}", content))
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.PutAsJsonAsync($"{url}/user", content))
             {
                 if (response.IsSuccessStatusCode)
                 {

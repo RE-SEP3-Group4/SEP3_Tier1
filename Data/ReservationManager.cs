@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace SEP3_Tier1.Data
 {
+    /// <summary>
+    /// This is class is used for the comunication with the second tier regarding the Reservation class.
+    /// </summary>
     public class ReservationManager
     {
         private static readonly string url = "http://localhost:8080";
