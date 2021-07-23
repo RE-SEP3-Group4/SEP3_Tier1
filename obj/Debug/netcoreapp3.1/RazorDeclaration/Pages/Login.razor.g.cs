@@ -118,8 +118,8 @@ using Data.Login;
         loading = true;
         try
         {
-            UserService.setUser((User) await UserManager.Login(user.username, user.password));
-            if (UserService.getUser() != null)
+            UserService.SetUser((User) await UserManager.Login(user.username, user.password));
+            if (UserService.GetUser() != null)
             {
                 NavigationManager.NavigateTo("/");
             }
