@@ -1,0 +1,114 @@
+﻿@page "/users"
+
+@using Data
+@using Models
+@using Authentication
+<h3>Users</h3>
+<h3>Update an user</h3>
+<div>
+
+    <EditForm Model="@user" OnValidSubmit="@updateUser">
+        <ValidationSummary />
+
+        <div class="form-group row">
+            <label for="username" class="col-sm-2 col-form-label">
+                Username:
+            </label>
+            <div class="col-sm-10">
+                <InputText id="username" class="form-control" placeholder="Username" @bind-Value="user.username" />
+                <ValidationMessage For="@(() => user.username)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="password" class="col-sm-2 col-form-label">
+                Password:
+            </label>
+            <div class="col-sm-10">
+                <InputText id="password" class="form-control" placeholder="Password" @bind-Value="user.password" />
+                <ValidationMessage For="@(() => user.password)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="userId" class="col-sm-2 col-form-label">
+                userId:
+            </label>
+            <div class="col-sm-10">
+                <InputText id="userId" class="form-control" placeholder="userId" @bind-Value="user.id" />
+                <ValidationMessage For="@(() => user.id)" />
+            </div>
+        </div>
+
+
+        <p class="actions">
+            <button class="btn btn-outline-success" type="submit">Update</button>
+        </p>
+
+
+    </EditForm>
+</div>
+@*
+    <div>
+        @if (users == null)
+        {
+            <p>
+                <em>Loading...</em>
+            </p>
+        }
+        else if (!users.Any())
+        {
+            <p>
+                <em>No users in the system. Please add some.</em>
+            </p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+
+                    <tr>
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th>securityLevel</th>
+                        <th>Remove</th>
+
+                    </tr>
+
+                </thead>
+                @foreach (var user in users)
+                {
+                    <tbody>
+
+                        <tr>
+                            <td>@user.id</td>
+                            <td>@user.username</td>
+                            <td>@user.password</td>
+                            <td>@user.securityLevel</td>
+
+
+                            <td>
+                                <button @onclick="@((() => RemoveUser(user.id)))">
+                                    <i class="oi oi-trash" style="color: black" />
+                                </button>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                }
+            </table>
+        }
+    </div>*@
+
+@code {
+    private User user = new User();
+    private List<User> users;
+
+
+
+    protected async Task updateUser()
+    {
+        await UserManager.UpdateUser(user.id, user.username, user.password);
+    }
+
+}

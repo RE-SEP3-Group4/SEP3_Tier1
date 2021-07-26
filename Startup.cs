@@ -27,8 +27,15 @@ namespace SEP3_Tier1
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddRazorPages(options=>
+            {
+                options.Conventions.AuthorizePage("/users", "admin");
+            });
             services.AddServerSideBlazor();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("admin", policy => policy.RequireAuthenticatedUser().RequireClaim("securityLevel", "3"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +57,8 @@ namespace SEP3_Tier1
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapBlazorHub();

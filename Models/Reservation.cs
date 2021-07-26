@@ -13,8 +13,8 @@ namespace SEP3_Tier1.Models
     [Serializable]
     public class Reservation
     {
-        int userID { get; set; }
-        int date { get; set; }
+       public int userID { get; set; }
+       public int date { get; set; }
 
         public Reservation() { }
 

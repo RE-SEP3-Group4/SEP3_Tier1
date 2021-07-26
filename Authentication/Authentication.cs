@@ -8,7 +8,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using SEP3_Tier1.Models;
 
-namespace SEP3_Tier1.Data.Login
+namespace Authentication
 {
     public class Authentication : AuthenticationStateProvider
     {
@@ -46,11 +46,11 @@ namespace SEP3_Tier1.Data.Login
         {
             List<Claim> claims = new List<Claim>();
             ClaimsIdentity identity;
-
+      
             if(user != null)
             {
                 claims.Add(new Claim(ClaimTypes.Name, user.username));
-                //claims.Add(new Claim("securityLevel", user.securityLevel));
+                claims.Add(new Claim("http://example.org/claims/securityLevel", "securityLevel", user.securityLevel.ToString()));
                 identity = new ClaimsIdentity(claims, "apiauth_type");
                 return identity;
             }

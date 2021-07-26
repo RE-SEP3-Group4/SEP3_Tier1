@@ -1,5 +1,8 @@
 ﻿@page "/addBooking"
 @using Models
+@using Data
+@using Authentication
+@inject NavigationManager navigationManager
 <h3>AddBooking</h3>
 <div class="row">
     <div class="col-md-4">
@@ -28,6 +31,11 @@
         n = int.Parse(dateTime.ToString("ddMMyyyy"));
         return n;
     }
-    void CreateBooking() { }
-    void cancel() { }
+    protected async Task CreateBooking() {
+        await ReservationManager.CreateReservation(UserService.GetUser().id, n);
+        navigationManager.NavigateTo("/bookings");
+    }
+        void cancel() {
+        navigationManager.NavigateTo("/bookings");
+    }
 }

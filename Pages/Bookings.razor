@@ -1,6 +1,7 @@
 ﻿@page "/bookings"
 @using Models
-
+@using Authentication
+@using Data
     <a class="btn btn-primary" href='/addBooking'>Add</a>
 
 <div class="card mt-4">
@@ -14,24 +15,29 @@
         @if (reservations != null)
         {
     <ul>
-        <!--
+        
     @foreach (var reservation in reservations)
     {
         <tr>
             <td>@reservation.date</td>
-            <td>@reservation.userId</td>
+            <td>@reservation.userID</td>
             <td>|
-                <a class="btn btn-danger" @onclick="() => DeleteBooking(reservation.userId)">Delete</a>
+                <a class="btn btn-danger" @onclick="() => DeleteBooking(reservation.userID)">Delete</a>
             </td>
         </tr>
-    }-->
+    }
     </ul>
         }
     </div>
 </div>
 @code {
     private bool loading;
-    private IEnumerable<Reservation> reservations;
-
+    private List<Reservation> reservations;
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        reservations = await ReservationManager.GetReservations(UserService.GetUser().id);
+        loading = false;
+    }
     void DeleteBooking(int userId) { }
 }

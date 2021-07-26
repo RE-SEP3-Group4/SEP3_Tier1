@@ -55,8 +55,6 @@ C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\SEP3_Tier1.csproj
 C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\SEP3_Tier1.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\SEP3_Tier1.RazorComponent.input.cache
 C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\RazorDeclaration\App.razor.g.cs
-C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Counter.razor.g.cs
-C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\FetchData.razor.g.cs
 C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Index.razor.g.cs
 C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Login.razor.g.cs
 C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\LoginLayout.razor.g.cs
@@ -85,8 +83,6 @@ C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\SEP3_Tier1.TagHel
 C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\SEP3_Tier1.TagHelpers.output.cache
 C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\SEP3_Tier1.RazorCoreGenerate.cache
 C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\Razor\App.razor.g.cs
-C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\Razor\Pages\Counter.razor.g.cs
-C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\Razor\Pages\FetchData.razor.g.cs
 C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\Razor\Pages\Index.razor.g.cs
 C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\Razor\Pages\Login.razor.g.cs
 C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\Razor\Shared\LoginLayout.razor.g.cs
@@ -122,3 +118,5 @@ C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\obj\Debug\netcoreapp3.1\Razor\
 C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\obj\Debug\netcoreapp3.1\Razor\Pages\Login.razor.g.cs
 C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\obj\Debug\netcoreapp3.1\Razor\Pages\Register.razor.g.cs
 C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\obj\Debug\netcoreapp3.1\Razor\Shared\LoginLayout.razor.g.cs
+C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Users.razor.g.cs
+C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\Razor\Pages\Users.razor.g.cs
