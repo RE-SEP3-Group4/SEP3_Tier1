@@ -85,5 +85,35 @@ namespace SEP3_Tier1.Data
                 }
             }
         }
+
+        public static async Task<bool> DeleteUser(int id)
+        {
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.DeleteAsync($"{url}/user?id={id}"))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsAsync<bool>();
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
+
+        public static async Task<List<User>> GetAllUsers()
+        {
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync($"{url}/users"))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsAsync<List<User>>();
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
     }
 }
