@@ -10,7 +10,7 @@
             <div class="form-group">
                 <label for="Name" class="control-label">Name</label>
                 <InputDate type="date" class="form-control" @bind-Value="dateTime" />
-                <input type="time" class="form-control oi-timer" @bind-value="dateTime" />
+                <input type="time" class="form-control oi-timer" @bind-value="hourTime" />
             </div>
             <div class="form-group">
                 <button type="button" class="btn btn-primary" @onclick="() => CreateBooking()">Save</button>
@@ -22,7 +22,7 @@
 </div>
 @code {
     private Reservation reservation = new Reservation();
-    private DateTime dateTime;
+    private DateTime dateTime, hourTime;
     string n;
     string hour;
 
@@ -33,7 +33,7 @@
     }
     string changeHourToString()
     {
-        hour = dateTime.ToString("HH:mm:ss");
+        hour = hourTime.ToString("HH:mm:ss");
         return hour;
     }
     protected async Task CreateBooking() {

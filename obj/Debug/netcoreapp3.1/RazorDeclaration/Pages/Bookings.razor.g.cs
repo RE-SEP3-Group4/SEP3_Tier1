@@ -115,7 +115,11 @@ using Data;
         reservations = await ReservationManager.GetReservations(UserService.GetUser().id);
         loading = false;
     }
-    void DeleteBooking(int userId) { }
+    private async Task DeleteBooking(Reservation reservation) {
+
+        await ReservationManager.DeleteReservation(reservation);
+        reservations = await ReservationManager.GetReservations(UserService.GetUser().id);
+    }
 
 #line default
 #line hidden

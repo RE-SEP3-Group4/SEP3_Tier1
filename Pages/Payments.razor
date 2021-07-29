@@ -1,0 +1,98 @@
+﻿@page "/payments"
+@using Data
+@using Models
+@using Authentication
+<h3>Payments</h3>
+<h2>Create new payments </h2>
+<button class="btn btn-primary" onclick="OpenPopUp">Create</button>
+<div class="card mt-4">
+    <h4 class="card-header">Payments</h4>
+    <div class="card-body">
+
+        @if (loading)
+        {
+            <div class="spinner-border spinner-border-sm"></div>
+        }
+        @if (payments != null)
+        {
+            <ul>
+
+                @foreach (var payment in payments)
+                {
+                    <tr>
+                        <td>@payment.startDate</td>
+                        <td>@payment.endDate</td>
+                        <td>
+                            |
+                            <a class="btn btn-danger" @onclick="() => DeletePayment(payment)">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </ul>
+        }
+    </div>
+</div>
+@if (popUp)
+{
+    <div class="modal" tabindex="-1" style="display:block" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Create payment</h3>
+                    <button type="button" class="close" @onclick="ClosePopUp">
+                        <span aria-hidden="true">X</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <InputDate type="date" class="form-control" @bind-Value="startDateTime" />
+                    <InputDate type="date" class="form-control" @bind-Value="endDateTime" />
+                    <button class="btn btn-primary" @onclick="CreatePayment"> Save</button>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+}
+
+@code {
+    private bool loading = false;
+    private bool popUp = false;
+    private List<Payment> payments;
+    private DateTime startDateTime, endDateTime;
+    private string startDate, endDate;
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        payments = await PaymentManager.GetPayments(UserService.GetUser().id);
+        loading = false;
+    }
+    private async Task CreatePayment()
+    {
+        await PaymentManager.CreatePayment(UserService.GetUser().id, changeStartDateToString(), changeEndDateToString());
+    }
+    string changeStartDateToString()
+    {
+        startDate = startDateTime.ToString("ddMMyyyy");
+        return startDate;
+    }
+    string changeEndDateToString()
+    {
+        endDate = endDateTime.ToString("ddMMyyyy");
+        return endDate;
+    }
+
+    private void OpenPopUp()
+    {
+        popUp = true;
+    }
+    private void ClosePopUp()
+    {
+        popUp = false;
+    }
+    private async Task DeletePayment(Payment payment)
+    {
+        await PaymentManager.DeletePayment(payment);
+    }
+}

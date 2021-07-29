@@ -76,21 +76,21 @@ using SEP3_Tier1.Shared;
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Users.razor"
+#line 2 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Users.razor"
 using Data;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Users.razor"
+#line 3 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Users.razor"
 using Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Users.razor"
+#line 4 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Users.razor"
 using Authentication;
 
 #line default
@@ -105,18 +105,52 @@ using Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 103 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Users.razor"
+#line 99 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Users.razor"
        
     private User user = new User();
+    private bool popUp = false;
     private List<User> users;
-
-
-
-    protected async Task updateUser()
+    protected override async Task OnInitializedAsync()
     {
-        await UserManager.UpdateUser(user.id, user.username, user.password);
+        users = await UserManager.GetAllUsers(); 
+    }
+    private async Task EditUser(User _user)
+    {
+        user = _user;
+        var usser = _user.id;
+        popUp = true;
+
+    }
+    private async Task SaveUser()
+    {
+        try
+        {
+            if (user.id != null)
+            {
+                var _user = user;
+                _user.id = user.id;
+                _user.username = user.username;
+                _user.password = user.password;
+                await UserManager.UpdateUser(user.id, user.username, user.password);
+            }
+            popUp = false;
+            users = await UserManager.GetAllUsers();
+        }
+        catch (Exception ex)
+        {
+            String error;
+            error = ex.GetBaseException().Message;
+        }
+    }
+    private async Task RemoveUser(int userId)
+    {
+         await UserManager.DeleteUser(userId); 
     }
 
+    void ClosePopUp()
+    {
+        popUp = false;
+    }
 
 #line default
 #line hidden
