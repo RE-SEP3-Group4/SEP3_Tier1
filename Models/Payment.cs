@@ -7,22 +7,22 @@ namespace SEP3_Tier1.Models
 {
     /// <summary>
     /// This class holds the information regarding gym payments.
-    /// Payments contain the user id, a date integer with the ddmmyyhhmm format and a period of time it is valid for.
+    /// Payments contain the user id and startDate and a endDate sting with the DDMMYYYY format.
     /// </summary>
     [Serializable]
     public class Payment
     {
         int userID { get; set; }
-        int date { get; set; }
-        int period { get; set; }
+        string startDate { get; set; }
+        string endDate { get; set; }
 
         public Payment() { }
 
-        public Payment(int userID, int date, int period)
+        public Payment(int userID, string startDate, string endDate)
         {
             this.userID = userID;
-            this.date = date;
-            this.period = period;
+            this.startDate = startDate;
+            this.endDate = endDate;
         }
     }
 }
