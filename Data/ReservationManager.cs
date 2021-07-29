@@ -58,5 +58,20 @@ namespace SEP3_Tier1.Data
                 }
             }
         }
+
+        public static async Task<bool> DeleteReservation(Reservation reservation)
+        {
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.DeleteAsync($"{url}/reservation?userID={reservation.userID}&date={reservation.date}&hour={reservation.hour}"))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsAsync<bool>();
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
     }
 }

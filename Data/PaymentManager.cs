@@ -59,5 +59,20 @@ namespace SEP3_Tier1.Data
                 }
             }
         }
+
+        public static async Task<bool> DeletePayment(Payment payment)
+        {
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.DeleteAsync($"{url}/payment?userID={payment.userID}&startDate={payment.startDate}&endDate={payment.endDate}"))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsAsync<bool>();
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
     }
 }
