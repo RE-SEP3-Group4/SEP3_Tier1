@@ -22,7 +22,7 @@
             <td>@reservation.date</td>
             <td>@reservation.userID</td>
             <td>|
-                <a class="btn btn-danger" @onclick="() => DeleteBooking(reservation.userID)">Delete</a>
+                <a class="btn btn-danger" @onclick="() => DeleteBooking(reservation)">Delete</a>
             </td>
         </tr>
     }
@@ -39,5 +39,9 @@
         reservations = await ReservationManager.GetReservations(UserService.GetUser().id);
         loading = false;
     }
-    void DeleteBooking(int userId) { }
+    private async Task DeleteBooking(Reservation reservation) {
+
+        await ReservationManager.DeleteReservation(reservation);
+        reservations = await ReservationManager.GetReservations(UserService.GetUser().id);
+    }
 }

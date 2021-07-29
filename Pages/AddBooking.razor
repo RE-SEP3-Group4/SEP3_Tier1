@@ -10,10 +10,9 @@
             <div class="form-group">
                 <label for="Name" class="control-label">Name</label>
                 <InputDate type="date" class="form-control" @bind-Value="dateTime" />
-
+                <input type="time" class="form-control oi-timer" @bind-value="dateTime" />
             </div>
             <div class="form-group">
-                <button type="button" class="btn btn-primary" @onclick="() => changeDateToInt()">Change date to int</button>
                 <button type="button" class="btn btn-primary" @onclick="() => CreateBooking()">Save</button>
                 <button type="button" class="btn btn-danger" @onclick="() => cancel()">Cancel</button>
             </div>
@@ -24,18 +23,24 @@
 @code {
     private Reservation reservation = new Reservation();
     private DateTime dateTime;
-    int n;
+    string n;
+    string hour;
 
-    int changeDateToInt()
+    string changeDateToString()
     {
-        n = int.Parse(dateTime.ToString("ddMMyyyy"));
+        n = dateTime.ToString("ddMMyyyy");
         return n;
     }
+    string changeHourToString()
+    {
+        hour = dateTime.ToString("HH:mm:ss");
+        return hour;
+    }
     protected async Task CreateBooking() {
-        await ReservationManager.CreateReservation(UserService.GetUser().id, n);
+        await ReservationManager.CreateReservation(UserService.GetUser().id, changeDateToString(), changeHourToString());
         navigationManager.NavigateTo("/bookings");
     }
-        void cancel() {
+    void cancel() {
         navigationManager.NavigateTo("/bookings");
     }
 }
