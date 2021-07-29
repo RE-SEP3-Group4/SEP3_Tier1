@@ -42,9 +42,9 @@ namespace SEP3_Tier1.Data
         /// <param name="date">Date is integer with the ddmmyyhhmm format.</param>
         /// <param name="period">Period is the period of time the payment is valid for.</param>
         /// <returns>A boolean that is true if the command was successful.</returns>
-        public static async Task<bool> CreatePayment(int userID, int date, int period)
+        public static async Task<bool> CreatePayment(int userID, string startDate, string endDate)
         {
-            Payment payment = new Payment(userID, date, period);
+            Payment payment = new Payment(userID, startDate, endDate);
             string jsonPayment = Newtonsoft.Json.JsonConvert.SerializeObject(payment);
             StringContent content = new StringContent(jsonPayment, Encoding.UTF8, "application/json");
             using (HttpResponseMessage response = await ApiHelper.ApiClient.PostAsJsonAsync($"{url}/payment", content))

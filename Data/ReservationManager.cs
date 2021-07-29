@@ -41,9 +41,9 @@ namespace SEP3_Tier1.Data
         /// <param name="userID">The id of the user that is going to use the reservation.</param>
         /// <param name="date">Date is integer with the ddmmyyhhmm format</param>
         /// <returns>A boolean that is true if the command was successful.</returns>
-        public static async Task<bool> CreateReservation(int userID, int date)
+        public static async Task<bool> CreateReservation(int userID, string date, string hour)
         {
-            Reservation reservation = new Reservation(userID, date);
+            Reservation reservation = new Reservation(userID, date, hour);
             string jsonReservation = Newtonsoft.Json.JsonConvert.SerializeObject(reservation);
             StringContent content = new StringContent(jsonReservation, Encoding.UTF8, "application/json");
             using (HttpResponseMessage response = await ApiHelper.ApiClient.PostAsJsonAsync($"{url}/reservation", content))
