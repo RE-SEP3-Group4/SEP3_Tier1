@@ -12,9 +12,9 @@ namespace SEP3_Tier1.Models
     [Serializable]
     public class Payment
     {
-        int userID { get; set; }
-        string startDate { get; set; }
-        string endDate { get; set; }
+        public int userID { get; set; }
+        public string startDate { get; set; }
+        public string endDate { get; set; }
 
         public Payment() { }
 
