@@ -4,7 +4,7 @@
 @using Authentication
 <h3>Payments</h3>
 <h2>Create new payments </h2>
-<button class="btn btn-primary" onclick="OpenPopUp">Create</button>
+<button class="btn btn-primary" @onclick="openPopUp">Create</button>
 <div class="card mt-4">
     <h4 class="card-header">Payments</h4>
     <div class="card-body">
@@ -44,10 +44,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <InputDate type="date" class="form-control" @bind-Value="startDateTime" />
-                    <InputDate type="date" class="form-control" @bind-Value="endDateTime" />
-                    <button class="btn btn-primary" @onclick="CreatePayment"> Save</button>
-
+                    <EditForm Model="payment">
+                        <InputDate type="date" class="form-control" @bind-Value="startDateTime" />
+                        <InputDate type="date" class="form-control" @bind-Value="endDateTime" />
+                        <button class="btn btn-primary" @onclick="CreatePayment"> Save</button>
+                    </EditForm>
                 </div>
             </div>
 
@@ -57,6 +58,7 @@
 }
 
 @code {
+    private Payment payment = new Payment();
     private bool loading = false;
     private bool popUp = false;
     private List<Payment> payments;
@@ -83,7 +85,7 @@
         return endDate;
     }
 
-    private void OpenPopUp()
+    void openPopUp()
     {
         popUp = true;
     }

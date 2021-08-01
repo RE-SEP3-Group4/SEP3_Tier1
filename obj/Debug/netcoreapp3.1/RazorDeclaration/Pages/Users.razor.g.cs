@@ -105,14 +105,14 @@ using Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 99 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Users.razor"
+#line 97 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Users.razor"
        
     private User user = new User();
     private bool popUp = false;
     private List<User> users;
     protected override async Task OnInitializedAsync()
     {
-        users = await UserManager.GetAllUsers(); 
+        users = await UserManager.GetAllUsers();
     }
     private async Task EditUser(User _user)
     {
@@ -144,7 +144,11 @@ using Authentication;
     }
     private async Task RemoveUser(int userId)
     {
-         await UserManager.DeleteUser(userId); 
+        await UserManager.DeleteUser(userId);
+    }
+    void openPopUp()
+    {
+        popUp = true;
     }
 
     void ClosePopUp()

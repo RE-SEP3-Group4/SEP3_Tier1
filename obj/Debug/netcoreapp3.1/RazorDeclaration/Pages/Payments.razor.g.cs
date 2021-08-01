@@ -105,8 +105,9 @@ using Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 59 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Payments.razor"
+#line 60 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Payments.razor"
        
+    private Payment payment = new Payment();
     private bool loading = false;
     private bool popUp = false;
     private List<Payment> payments;
@@ -133,7 +134,7 @@ using Authentication;
         return endDate;
     }
 
-    private void OpenPopUp()
+    void openPopUp()
     {
         popUp = true;
     }

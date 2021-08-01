@@ -119,7 +119,7 @@ using Authentication;
     }
     string changeHourToString()
     {
-        hour = hourTime.ToString("HH:mm:ss");
+        hour = hourTime.ToString("HH:mm");
         return hour;
     }
     protected async Task CreateBooking() {

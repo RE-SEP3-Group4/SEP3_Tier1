@@ -4,6 +4,7 @@
 @using Authentication
 <h3>Users</h3>
 <h3>Update an user</h3>
+<button @onclick="openPopUp">Create </button>
 <div>
     @if (users == null)
     {
@@ -81,11 +82,8 @@
                     {
                         <p>@user.username</p>
                     }
-                    else
-                    {
                         <input class="form-control" type="text" placeholder="Username" @bind="user.username" />
-                    }
-                    <input class="form-control" type="password" placeholder="Password" @bind="user.password" />
+                        <input class="form-control" type="password" placeholder="Password" @bind="user.password" />
                     <button class="btn btn-primary" @onclick="SaveUser"> Save</button>
 
                 </div>
@@ -102,7 +100,7 @@
     private List<User> users;
     protected override async Task OnInitializedAsync()
     {
-        users = await UserManager.GetAllUsers(); 
+        users = await UserManager.GetAllUsers();
     }
     private async Task EditUser(User _user)
     {
@@ -134,7 +132,11 @@
     }
     private async Task RemoveUser(int userId)
     {
-         await UserManager.DeleteUser(userId); 
+        await UserManager.DeleteUser(userId);
+    }
+    void openPopUp()
+    {
+        popUp = true;
     }
 
     void ClosePopUp()
