@@ -34,7 +34,7 @@ namespace SEP3_Tier1
             services.AddServerSideBlazor();
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("admin", policy => policy.RequireAuthenticatedUser().RequireClaim("securityLevel", "3"));
+                options.AddPolicy("admin", policy => policy.RequireAuthenticatedUser().RequireClaim("securityLevel", "2"));
             });
         }
 

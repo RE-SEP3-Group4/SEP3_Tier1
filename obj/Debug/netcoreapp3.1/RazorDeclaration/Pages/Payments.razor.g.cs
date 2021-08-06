@@ -136,7 +136,10 @@ using Authentication;
 
     void openPopUp()
     {
-        popUp = true;
+        if (payments == null)
+        {
+            popUp = true;
+        }
     }
     private void ClosePopUp()
     {
