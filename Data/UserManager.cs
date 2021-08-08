@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using SEP3_Tier1.Models;
-
+using SEP3_Tier1.Authentication;
 namespace SEP3_Tier1.Data
 {
     /// <summary>
@@ -27,6 +27,7 @@ namespace SEP3_Tier1.Data
             {
                 if (response.IsSuccessStatusCode)
                 {
+                    
                     return await response.Content.ReadAsAsync<User>();
                 }
                 else

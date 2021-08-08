@@ -8,36 +8,41 @@
     <div class="col-md-4">
         <EditForm Model="reservation">
             <div class="form-group">
-                <label for="Name" class="control-label">Name</label>
+                <label for="Name" class="control-label">Reservation for @user.username with id @user.id</label>
                 <InputDate type="date" class="form-control" @bind-Value="dateTime" />
                 <input type="time" class="form-control oi-timer" @bind-value="hourTime" />
             </div>
             <div class="form-group">
                 <button type="button" class="btn btn-primary" @onclick="() => CreateBooking()">Save</button>
                 <button type="button" class="btn btn-danger" @onclick="() => cancel()">Cancel</button>
+                <button type="button" class="btn btn-danger" @onclick="() => console()">Cancel</button>
+
             </div>
         </EditForm>
     </div>
-    <p>@n</p>
+   
 </div>
 @code {
+    private User user;
     private Reservation reservation = new Reservation();
     private DateTime dateTime, hourTime;
-    string n;
-    string hour;
+    private string date;
+    private string hour;
+    protected override void OnInitialized()
+    {
+        user = UserService.GetUser();
+    }
+    void console()
+    {
+        date = dateTime.ToString("ddMMyyyy");
+        hour = hourTime.ToString("HHmm");
+        Console.WriteLine(date + "," + hour + "," + user.id);
+    }
 
-    string changeDateToString()
-    {
-        n = dateTime.ToString("ddMMyyyy");
-        return n;
-    }
-    string changeHourToString()
-    {
-        hour = hourTime.ToString("HH:mm");
-        return hour;
-    }
-    protected async Task CreateBooking() {
-        await ReservationManager.CreateReservation(UserService.GetUser().id, changeDateToString(), changeHourToString());
+    private async void CreateBooking() {
+        date = dateTime.ToString("ddMMyyyy");
+        hour = hourTime.ToString("HHmm");
+        await ReservationManager.CreateReservation(user.id, date, hour);
         navigationManager.NavigateTo("/bookings");
     }
     void cancel() {

@@ -1,58 +1,66 @@
-﻿@page "/login"
+﻿@page "/"
 @layout LoginLayout
 @using Models
 @using Data
 @using Authentication
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@inject UserService UserService
 @inject NavigationManager NavigationManager
-<div class="card">
-    <h4 class="card-header">Login</h4>
-    <div class="card-body">
-        <Microsoft.AspNetCore.Components.Forms.EditForm Model="@user" OnValidSubmit="OnValidSubmit">
-            <Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator />
-            <div class="form-group">
-                <label>Username</label>
-                <Microsoft.AspNetCore.Components.Forms.InputText @bind-Value="user.username" class="form-control" />
-                <Microsoft.AspNetCore.Components.Forms.ValidationMessage For="@(() => user.username)" />
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <Microsoft.AspNetCore.Components.Forms.InputText @bind-Value="user.password" type="password" class="form-control" />
-                <Microsoft.AspNetCore.Components.Forms.ValidationMessage For="@(() => user.password)" />
-            </div>
-            <button disabled="@loading" class="btn btn-primary">
-                @if (loading)
-                {
-                    <span class="spinner-border spinner-border-sm mr-1"></span>
-                }
-                Login
-            </button>
-            <Microsoft.AspNetCore.Components.Routing.NavLink href="register" class="btn btn-link">Register</Microsoft.AspNetCore.Components.Routing.NavLink>
-        </Microsoft.AspNetCore.Components.Forms.EditForm>
+<div class="col-md-6 offset-md-3 mt-5">
+    <div class="alert alert-info">
+        Please fill username and password
     </div>
-</div>
-@code {
-    private User user = new User();
-    private bool loading;
-    private bool showAuthErrorTxt = false;
-    private string authErrorTxt = "";
+    <div class="card">
+        <h4 class="card-header">Login</h4>
+        <div class="card-body">
+            <Microsoft.AspNetCore.Components.Forms.EditForm Model="@user" OnValidSubmit="OnValidSubmit">
+                <Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator />
+                <div class="form-group">
+                    <label>Username</label>
+                    <Microsoft.AspNetCore.Components.Forms.InputText @bind-Value="user.username" class="form-control" />
+                    <Microsoft.AspNetCore.Components.Forms.ValidationMessage For="@(() => user.username)" />
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <Microsoft.AspNetCore.Components.Forms.InputText @bind-Value="user.password" type="password" class="form-control" />
+                    <Microsoft.AspNetCore.Components.Forms.ValidationMessage For="@(() => user.password)" />
+                </div>
+                <button disabled="@loading" class="btn btn-primary">
+                    @if (loading)
+                    {
+                        <span class="spinner-border spinner-border-sm mr-1"></span>
+                    }
+                    Login
+                </button>
+                <Microsoft.AspNetCore.Components.Routing.NavLink href="register" class="btn btn-link">Register</Microsoft.AspNetCore.Components.Routing.NavLink>
+            </Microsoft.AspNetCore.Components.Forms.EditForm>
+        </div>
+    </div>
+    </div>
+    @code {
+        private User user = new User();
+        private bool loading;
+        private bool showAuthErrorTxt = false;
+        private string authErrorTxt = "";
 
-    private async void OnValidSubmit()
-    {
-        loading = true;
-        try
+        private async void OnValidSubmit()
         {
-            UserService.SetUser((User) await UserManager.Login(user.username, user.password));
-            if (UserService.GetUser() != null)
+            loading = true;
+            try
             {
-                NavigationManager.NavigateTo("/");
+                await UserManager.Login(user.username, user.password);
+                UserService.SetUser(user);
+                if (UserService.GetUser() != null)
+                {
+                    NavigationManager.NavigateTo("/index");
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                loading = false;
+                StateHasChanged();
             }
         }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            loading = false;
-            StateHasChanged();
-        }
     }
-}

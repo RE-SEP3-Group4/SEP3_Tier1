@@ -48,6 +48,7 @@
                         <InputDate type="date" class="form-control" @bind-Value="startDateTime" />
                         <InputDate type="date" class="form-control" @bind-Value="endDateTime" />
                         <button class="btn btn-primary" @onclick="CreatePayment"> Save</button>
+                        <p>@changeStartDateToString()</p>
                     </EditForm>
                 </div>
             </div>
@@ -58,6 +59,7 @@
 }
 
 @code {
+    private User user;
     private Payment payment = new Payment();
     private bool loading = false;
     private bool popUp = false;
@@ -66,8 +68,9 @@
     private string startDate, endDate;
     protected override async Task OnInitializedAsync()
     {
+        user = UserService.GetUser();
         loading = true;
-        payments = await PaymentManager.GetPayments(UserService.GetUser().id);
+        payments = await PaymentManager.GetPayments(user.id);
         loading = false;
     }
     private async Task CreatePayment()
@@ -87,10 +90,9 @@
 
     void openPopUp()
     {
-        if (payments == null)
-        {
-            popUp = true;
-        }
+
+        popUp = true;
+
     }
     private void ClosePopUp()
     {

@@ -105,8 +105,9 @@ using Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 60 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Payments.razor"
+#line 61 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Payments.razor"
        
+    private User user;
     private Payment payment = new Payment();
     private bool loading = false;
     private bool popUp = false;
@@ -115,8 +116,9 @@ using Authentication;
     private string startDate, endDate;
     protected override async Task OnInitializedAsync()
     {
+        user = UserService.GetUser();
         loading = true;
-        payments = await PaymentManager.GetPayments(UserService.GetUser().id);
+        payments = await PaymentManager.GetPayments(user.id);
         loading = false;
     }
     private async Task CreatePayment()
@@ -136,10 +138,9 @@ using Authentication;
 
     void openPopUp()
     {
-        if (payments == null)
-        {
-            popUp = true;
-        }
+
+        popUp = true;
+
     }
     private void ClosePopUp()
     {

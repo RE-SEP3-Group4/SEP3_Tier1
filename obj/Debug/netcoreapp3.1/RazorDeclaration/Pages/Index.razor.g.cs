@@ -75,7 +75,21 @@ using SEP3_Tier1.Shared;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/")]
+#nullable restore
+#line 3 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Index.razor"
+using Models;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Index.razor"
+using SEP3_Tier1.Authentication;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/index")]
     public partial class Index : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -83,6 +97,20 @@ using SEP3_Tier1.Shared;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 11 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Index.razor"
+      
+    private User user;
+
+    protected override void OnInitialized()
+    {
+        user = UserService.GetUser();
+    }
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private UserService userService { get; set; }
     }
 }
 #pragma warning restore 1591

@@ -75,6 +75,20 @@ using SEP3_Tier1.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 1 "C:\Users\javic\source\repos\SEP3_Tier1\Shared\NavMenu.razor"
+using Models;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 2 "C:\Users\javic\source\repos\SEP3_Tier1\Shared\NavMenu.razor"
+using SEP3_Tier1.Authentication;
+
+#line default
+#line hidden
+#nullable disable
     public partial class NavMenu : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -83,15 +97,16 @@ using SEP3_Tier1.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 40 "C:\Users\javic\source\repos\SEP3_Tier1\Shared\NavMenu.razor"
+#line 42 "C:\Users\javic\source\repos\SEP3_Tier1\Shared\NavMenu.razor"
        
     private bool collapseNavMenu = true;
-
+    private User user = UserService.GetUser();
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+
 
     private void ToggleNavMenu()
     {
-        collapseNavMenu = !collapseNavMenu;
     }
 
 #line default

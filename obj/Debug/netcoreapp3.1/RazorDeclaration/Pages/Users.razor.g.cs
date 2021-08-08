@@ -105,9 +105,9 @@ using Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 97 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Users.razor"
+#line 92 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Users.razor"
        
-    private User user = new User();
+    private User user = UserService.GetUser();
     private bool popUp = false;
     private List<User> users;
     protected override async Task OnInitializedAsync()

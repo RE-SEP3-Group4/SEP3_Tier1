@@ -107,18 +107,20 @@ using Data;
 #nullable restore
 #line 33 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Bookings.razor"
        
+    private User user;
     private bool loading;
     private List<Reservation> reservations;
     protected override async Task OnInitializedAsync()
     {
+        user = UserService.GetUser();
         loading = true;
-        reservations = await ReservationManager.GetReservations(UserService.GetUser().id);
+        reservations = await ReservationManager.GetReservations(user.id);
         loading = false;
     }
     private async Task DeleteBooking(Reservation reservation) {
 
         await ReservationManager.DeleteReservation(reservation);
-        reservations = await ReservationManager.GetReservations(UserService.GetUser().id);
+        reservations = await ReservationManager.GetReservations(user.id);
     }
 
 #line default

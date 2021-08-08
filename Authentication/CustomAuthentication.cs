@@ -7,32 +7,48 @@ using Microsoft.AspNetCore.Components.Authorization;
 using System.Security.Claims;
 using System.Text.Json;
 using SEP3_Tier1.Models;
-
-namespace Authentication
+using SEP3_Tier1.Data;
+namespace SEP3_Tier1.Authentication
 {
-    public class Authentication : AuthenticationStateProvider
+    public class CustomAuthentication : AuthenticationStateProvider
     {
-        private readonly IJSRuntime jSRuntime;
-
-        public Authentication(IJSRuntime jSRuntime)
+        private static readonly IJSRuntime jSRuntime;
+        private JsonSerializerOptions options =
+        new JsonSerializerOptions
         {
-            this.jSRuntime = jSRuntime;
-        }
+            DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+            IgnoreNullValues = true,
+            IgnoreReadOnlyProperties = true,
+            PropertyNameCaseInsensitive = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            ReadCommentHandling = JsonCommentHandling.Skip,
+            WriteIndented = false
+        };
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             ClaimsIdentity identity = new ClaimsIdentity();
-            identity = SetupClaimsForUser(UserService.GetUser());
+            var serialisedData = await jSRuntime.InvokeAsync<string>("sessionStorage.getItem", "currentUser");
+            if(serialisedData != null)
+            {
+                User user = UserService.GetUser();
+                user = JsonSerializer.Deserialize<User>(serialisedData, options);
+                if(user != null)
+                {
+                    identity = SetupClaimsForUser(user);
+                }
+            }
+            
             ClaimsPrincipal cashedClaimsPrincipal = new ClaimsPrincipal(identity);
             return await Task.FromResult(new AuthenticationState(cashedClaimsPrincipal));
         }
-        public async Task ValidateLogin(User user)
+        public static async Task ValidateLogin(User user)
         {
             ClaimsIdentity identity = new ClaimsIdentity();
             identity = SetupClaimsForUser(user);
             string serializedData = JsonSerializer.Serialize(user);
             await jSRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", serializedData);
             UserService.SetUser(user);
-            NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(new ClaimsPrincipal(identity))));
+           
         }
 
         public void LogOut()
@@ -42,15 +58,16 @@ namespace Authentication
             jSRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", "");
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
         }
-        private ClaimsIdentity SetupClaimsForUser(User user)
+        private static ClaimsIdentity SetupClaimsForUser(User user)
         {
             List<Claim> claims = new List<Claim>();
             ClaimsIdentity identity;
-      
+            user = UserService.GetUser();
             if(user != null)
             {
-                claims.Add(new Claim(ClaimTypes.Name, user.username));
+                claims.Add(new Claim(ClaimTypes.Name , user.username));
                 claims.Add(new Claim("http://example.org/claims/securityLevel", "securityLevel", user.securityLevel.ToString()));
+                
                 identity = new ClaimsIdentity(claims, "apiauth_type");
                 return identity;
             }

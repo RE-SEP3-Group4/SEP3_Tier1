@@ -76,29 +76,13 @@ using SEP3_Tier1.Shared;
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Login.razor"
-using Models;
+#line 3 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Logout.razor"
+using SEP3_Tier1.Authentication;
 
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 4 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Login.razor"
-using Data;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 5 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Login.razor"
-using Authentication;
-
-#line default
-#line hidden
-#nullable disable
-    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(LoginLayout))]
-    [Microsoft.AspNetCore.Components.RouteAttribute("/")]
-    public partial class Login : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class Logout : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -106,41 +90,19 @@ using Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 40 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Login.razor"
-           
-        private User user = new User();
-        private bool loading;
-        private bool showAuthErrorTxt = false;
-        private string authErrorTxt = "";
-
-        private async void OnValidSubmit()
-        {
-            loading = true;
-            try
-            {
-                await UserManager.Login(user.username, user.password);
-                UserService.SetUser(user);
-                if (UserService.GetUser() != null)
-                {
-                    NavigationManager.NavigateTo("/index");
-                }
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                loading = false;
-                StateHasChanged();
-            }
-        }
-    
+#line 7 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Logout.razor"
+       
+    protected override async void OnInitialized()
+    {
+        authenticationStateProvider.LogOut();
+        NavigationManager.NavigateTo("/");
+    }
 
 #line default
 #line hidden
 #nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private UserService UserService { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private CustomAuthentication authenticationStateProvider { get; set; }
     }
 }
 #pragma warning restore 1591

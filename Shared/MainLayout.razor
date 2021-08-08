@@ -1,15 +1,30 @@
 ﻿@inherits LayoutComponentBase
-
+@using Authentication 
+@using Models 
 <div class="sidebar">
     <NavMenu />
 </div>
 
 <div class="main">
     <div class="top-row px-4">
-        <a href="login">Login</a>
+        @if (user == null)
+        {
+            <a href="login">Login</a>
+        }
+        @if (user != null)
+        {
+            <a href="logout">Logout</a>
+        }
     </div>
 
     <div class="content px-4">
         @Body
     </div>
 </div>
+@code{
+    private User user;
+    protected override async void OnInitialized()
+    {
+        user = UserService.GetUser();
+    }
+}

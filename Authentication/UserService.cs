@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SEP3_Tier1.Models;
 
-namespace Authentication
+namespace SEP3_Tier1.Authentication
 {
     public class UserService 
     {

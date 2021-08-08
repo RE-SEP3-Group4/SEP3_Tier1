@@ -1,0 +1,13 @@
+﻿@inject CustomAuthentication authenticationStateProvider
+@inject NavigationManager NavigationManager
+@using SEP3_Tier1.Authentication
+
+
+
+@code {
+    protected override async void OnInitialized()
+    {
+        authenticationStateProvider.LogOut();
+        NavigationManager.NavigateTo("/");
+    }
+}

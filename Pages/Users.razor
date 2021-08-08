@@ -2,100 +2,95 @@
 @using Data
 @using Models
 @using Authentication
-<h3>Users</h3>
-<h3>Update an user</h3>
-<button @onclick="openPopUp">Create </button>
-<div>
-    @if (users == null)
-    {
-        <p>
-            <em>Loading...</em>
-        </p>
-    }
-    else if (!users.Any())
-    {
-        <p>
-            <em>No users in the system. Please add some.</em>
-        </p>
-    }
-    else
-    {
-        <table class="table">
-            <thead>
-
-                <tr>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>securityLevel</th>
-                    <th>Remove</th>
-
-                </tr>
-
-            </thead>
-            @foreach (var user in users)
+@if(user.username == "admin") { 
+        <h3>Users</h3>
+        <h3>Update an user</h3>
+        <button @onclick="openPopUp">Create </button>
+        <div>
+            @if (users == null)
             {
-                <tbody>
-
-                    <tr>
-                        <td>@user.id</td>
-                        <td>@user.username</td>
-                        <td>@user.password</td>
-                        <td>@user.securityLevel</td>
-
-                        <td>
-                            <button class="btn btn-primary"
-                                    @onclick="(() => EditUser(user))">
-                                EditUser
-                            </button>
-                        </td>
-                        <td>
-                            <button @onclick="@((() => RemoveUser(user.id)))">
-                                <i class="oi oi-trash" style="color: black" />
-                            </button>
-                        </td>
-
-                    </tr>
-
-                </tbody>
+                <p>
+                    <em>Loading...</em>
+                </p>
             }
-        </table>
-    }
-</div>
+            else if (!users.Any())
+            {
+                <p>
+                    <em>No users in the system. Please add some.</em>
+                </p>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
 
-@if (popUp)
-{
-    <div class="modal" tabindex="-1" style="display:block" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Edit User</h3>
-                    <button type="button" class="close" @onclick="ClosePopUp">
-                        <span aria-hidden="true">X</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    @if (user.id != null)
+                        <tr>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>securityLevel</th>
+                            <th>Remove</th>
+
+                        </tr>
+
+                    </thead>
+                    @foreach (var user in users)
                     {
-                        <p>@user.id</p>
-                    }
-                    @if (user.id != null)
-                    {
-                        <p>@user.username</p>
-                    }
-                        <input class="form-control" type="text" placeholder="Username" @bind="user.username" />
-                        <input class="form-control" type="password" placeholder="Password" @bind="user.password" />
-                    <button class="btn btn-primary" @onclick="SaveUser"> Save</button>
+                        <tbody>
 
-                </div>
-            </div>
+                            <tr>
+                                <td>@user.id</td>
+                                <td>@user.username</td>
+                                <td>@user.password</td>
+                                <td>@user.securityLevel</td>
 
+                                <td>
+                                    <button class="btn btn-primary"
+                                            @onclick="(() => EditUser(user))">
+                                        EditUser
+                                    </button>
+                                </td>
+                                <td>
+                                    <button @onclick="@((() => RemoveUser(user.id)))">
+                                        <i class="oi oi-trash" style="color: black" />
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    }
+                </table>
+            }
         </div>
 
-    </div>
-}
+        @if (popUp)
+        {
+            <div class="modal" tabindex="-1" style="display:block" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Edit User</h3>
+                            <button type="button" class="close" @onclick="ClosePopUp">
+                                <span aria-hidden="true">X</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
 
+                            <input class="form-control" type="text" placeholder="Username" @bind="user.username" />
+                            <input class="form-control" type="password" placeholder="Password" @bind="user.password" />
+                            <button class="btn btn-primary" @onclick="SaveUser"> Save</button>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        }
+}
+<p>ups</p>
 @code {
-    private User user = new User();
+    private User user = UserService.GetUser();
     private bool popUp = false;
     private List<User> users;
     protected override async Task OnInitializedAsync()

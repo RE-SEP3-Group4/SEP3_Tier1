@@ -75,6 +75,20 @@ using SEP3_Tier1.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 2 "C:\Users\javic\source\repos\SEP3_Tier1\Shared\MainLayout.razor"
+using Authentication;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\Users\javic\source\repos\SEP3_Tier1\Shared\MainLayout.razor"
+using Models;
+
+#line default
+#line hidden
+#nullable disable
     public partial class MainLayout : LayoutComponentBase
     {
         #pragma warning disable 1998
@@ -82,6 +96,18 @@ using SEP3_Tier1.Shared;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 24 "C:\Users\javic\source\repos\SEP3_Tier1\Shared\MainLayout.razor"
+      
+    private User user;
+    protected override async void OnInitialized()
+    {
+        user = UserService.GetUser();
+    }
+
+#line default
+#line hidden
+#nullable disable
     }
 }
 #pragma warning restore 1591

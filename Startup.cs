@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SEP3_Tier1.Authentication;
 using SEP3_Tier1.Data;
 using System;
 using System.Collections.Generic;
@@ -31,10 +34,13 @@ namespace SEP3_Tier1
             {
                 options.Conventions.AuthorizePage("/users", "admin");
             });
+            services.AddScoped<UserService>();
+            services.AddScoped<AuthenticationStateProvider, CustomAuthentication>();
             services.AddServerSideBlazor();
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("admin", policy => policy.RequireAuthenticatedUser().RequireClaim("securityLevel", "2"));
+                options.AddPolicy("admin", policy => policy.RequireAuthenticatedUser().RequireUserName("admin"));
+                
             });
         }
 

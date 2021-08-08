@@ -5,50 +5,54 @@
 @layout LoginLayout
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject NavigationManager NavigationManager
-<div class="card">
-    <h4 class="card-header">Register</h4>
-    <div class="card-body">
-        <EditForm Model="@user" OnValidSubmit="OnValidSubmit">
-            <DataAnnotationsValidator />
-            
-            <div class="form-group">
-                <label>Username</label>
-                <InputText @bind-Value="user.username" class="form-control" />
-                <ValidationMessage For="@(() => user.username)" />
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <InputText @bind-Value="user.password" type="password" class="form-control" />
-                <ValidationMessage For="@(() => user.password)" />
-            </div>
-            <button disabled="@loading" class="btn btn-primary">
-                @if (loading)
-                {
-                    <span class="spinner-border spinner-border-sm mr-1"></span>
+    <div class="col-md-8 offset-md-2 mt-5">
+       
+                <div class="card">
+                    <h4 class="card-header">Register</h4>
+                    <div class="card-body">
+                        <EditForm Model="@user" OnValidSubmit="OnValidSubmit">
+                            <DataAnnotationsValidator />
+
+                            <div class="form-group">
+                                <label>Username</label>
+                                <InputText @bind-Value="user.username" class="form-control" />
+                                <ValidationMessage For="@(() => user.username)" />
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <InputText @bind-Value="user.password" type="password" class="form-control" />
+                                <ValidationMessage For="@(() => user.password)" />
+                            </div>
+                            <button disabled="@loading" class="btn btn-primary">
+                                @if (loading)
+                                {
+                                    <span class="spinner-border spinner-border-sm mr-1"></span>
+                                }
+                                Register
+                            </button>
+                            <NavLink href="account/login" class="btn btn-link">Cancel</NavLink>
+                           
+                        </EditForm>
+                    </div>
+                </div>
+        </div>
+                @code {
+                    private User user = new User();
+                    private bool loading;
+
+                    private async void OnValidSubmit()
+                    {
+                        loading = true;
+
+                        try
+                        {
+                            await UserManager.Register(user.username, user.password);
+                            UserService.SetUser(user);
+                            NavigationManager.NavigateTo("/login");
+                        }
+                        catch (Exception e)
+                        {
+                            StateHasChanged();
+                        }
+                    }
                 }
-                Register
-            </button>
-            <NavLink href="account/login" class="btn btn-link">Cancel</NavLink>
-        </EditForm>
-    </div>
-</div>
-@code {
-    private User user = new User();
-    private bool loading;
-
-    private async void OnValidSubmit()
-    {
-        loading = true;
-
-        try
-        {
-            await UserManager.Register(user.username, user.password);
-            UserService.SetUser(user);
-            NavigationManager.NavigateTo("/login");
-        }
-        catch(Exception e)
-        {
-            StateHasChanged();
-        }
-    }
-}

@@ -105,25 +105,28 @@ using Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 23 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\AddBooking.razor"
+#line 25 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\AddBooking.razor"
        
+    private User user;
     private Reservation reservation = new Reservation();
     private DateTime dateTime, hourTime;
-    string n;
-    string hour;
+    private string date;
+    private string hour;
+    protected override void OnInitialized()
+    {
+        user = UserService.GetUser();
+    }
+    void console()
+    {
+        date = dateTime.ToString("ddMMyyyy");
+        hour = hourTime.ToString("HHmm");
+        Console.WriteLine(date + "," + hour + "," + user.id);
+    }
 
-    string changeDateToString()
-    {
-        n = dateTime.ToString("ddMMyyyy");
-        return n;
-    }
-    string changeHourToString()
-    {
-        hour = hourTime.ToString("HH:mm");
-        return hour;
-    }
-    protected async Task CreateBooking() {
-        await ReservationManager.CreateReservation(UserService.GetUser().id, changeDateToString(), changeHourToString());
+    private async void CreateBooking() {
+        date = dateTime.ToString("ddMMyyyy");
+        hour = hourTime.ToString("HHmm");
+        await ReservationManager.CreateReservation(user.id, date, hour);
         navigationManager.NavigateTo("/bookings");
     }
     void cancel() {

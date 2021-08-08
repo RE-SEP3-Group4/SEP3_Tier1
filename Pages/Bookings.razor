@@ -5,7 +5,7 @@
     <a class="btn btn-primary" href='/addBooking'>Add</a>
 
 <div class="card mt-4">
-    <h4 class="card-header">Bookings</h4>
+    <h4 class="card-header">Bookings of @user.username with id @user.id</h4>
     <div class="card-body">
        
         @if (loading)
@@ -31,17 +31,19 @@
     </div>
 </div>
 @code {
+    private User user;
     private bool loading;
     private List<Reservation> reservations;
     protected override async Task OnInitializedAsync()
     {
+        user = UserService.GetUser();
         loading = true;
-        reservations = await ReservationManager.GetReservations(UserService.GetUser().id);
+        reservations = await ReservationManager.GetReservations(user.id);
         loading = false;
     }
     private async Task DeleteBooking(Reservation reservation) {
 
         await ReservationManager.DeleteReservation(reservation);
-        reservations = await ReservationManager.GetReservations(UserService.GetUser().id);
+        reservations = await ReservationManager.GetReservations(user.id);
     }
 }

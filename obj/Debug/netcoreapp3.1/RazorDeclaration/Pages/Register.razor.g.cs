@@ -106,26 +106,27 @@ using Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 35 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Register.razor"
-       
-    private User user = new User();
-    private bool loading;
+#line 39 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Register.razor"
+                       
+                    private User user = new User();
+                    private bool loading;
 
-    private async void OnValidSubmit()
-    {
-        loading = true;
+                    private async void OnValidSubmit()
+                    {
+                        loading = true;
 
-        try
-        {
-            await UserManager.Register(user.username, user.password);
-            UserService.SetUser(user);
-            NavigationManager.NavigateTo("/login");
-        }
-        catch(Exception e)
-        {
-            StateHasChanged();
-        }
-    }
+                        try
+                        {
+                            await UserManager.Register(user.username, user.password);
+                            UserService.SetUser(user);
+                            NavigationManager.NavigateTo("/login");
+                        }
+                        catch (Exception e)
+                        {
+                            StateHasChanged();
+                        }
+                    }
+                
 
 #line default
 #line hidden
