@@ -45,8 +45,8 @@ namespace SEP3_Tier1.Data
         {
             Reservation reservation = new Reservation(userID, date, hour);
             string jsonReservation = Newtonsoft.Json.JsonConvert.SerializeObject(reservation);
-            StringContent content = new StringContent(jsonReservation, Encoding.UTF8, "application/json");
-            using (HttpResponseMessage response = await ApiHelper.ApiClient.PostAsJsonAsync($"{url}/reservation", content))
+            var content = new StringContent(jsonReservation, Encoding.UTF8, "application/json");
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.PostAsync($"{url}/reservation", content))
             {
                 if (response.IsSuccessStatusCode)
                 {

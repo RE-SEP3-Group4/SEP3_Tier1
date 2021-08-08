@@ -76,21 +76,33 @@ using SEP3_Tier1.Shared;
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< Updated upstream
 #line 3 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\Users.razor"
+=======
+#line 2 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\Users.razor"
+>>>>>>> Stashed changes
 using Data;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< Updated upstream
 #line 4 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\Users.razor"
+=======
+#line 3 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\Users.razor"
+>>>>>>> Stashed changes
 using Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< Updated upstream
 #line 5 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\Users.razor"
+=======
+#line 4 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\Users.razor"
+>>>>>>> Stashed changes
 using Authentication;
 
 #line default
@@ -105,7 +117,11 @@ using Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
+<<<<<<< Updated upstream
 #line 103 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\Users.razor"
+=======
+#line 97 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\Users.razor"
+>>>>>>> Stashed changes
        
     private User user = new User();
     private List<User> users;

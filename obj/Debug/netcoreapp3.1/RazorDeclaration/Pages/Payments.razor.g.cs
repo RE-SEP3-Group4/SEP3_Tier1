@@ -13,68 +13,93 @@ namespace SEP3_Tier1.Pages
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
+#line 1 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
+#line 2 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
+#line 3 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
+#line 4 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
+#line 5 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
+#line 6 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
+#line 7 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
+#line 8 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
 using SEP3_Tier1;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
+#line 9 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
 using SEP3_Tier1.Shared;
 
 #line default
 #line hidden
 #nullable disable
+<<<<<<< Updated upstream
+=======
+#nullable restore
+#line 2 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\Payments.razor"
+using Data;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\Payments.razor"
+using Models;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\Payments.razor"
+using Authentication;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/payments")]
+>>>>>>> Stashed changes
     public partial class Payments : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -82,6 +107,58 @@ using SEP3_Tier1.Shared;
         {
         }
         #pragma warning restore 1998
+<<<<<<< Updated upstream
+=======
+#nullable restore
+#line 60 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\Payments.razor"
+       
+    private Payment payment = new Payment();
+    private bool loading = false;
+    private bool popUp = false;
+    private List<Payment> payments;
+    private DateTime startDateTime, endDateTime;
+    private string startDate, endDate;
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        payments = await PaymentManager.GetPayments(UserService.GetUser().id);
+        loading = false;
+    }
+    private async Task CreatePayment()
+    {
+        await PaymentManager.CreatePayment(UserService.GetUser().id, changeStartDateToString(), changeEndDateToString());
+    }
+    string changeStartDateToString()
+    {
+        startDate = startDateTime.ToString("ddMMyyyy");
+        return startDate;
+    }
+    string changeEndDateToString()
+    {
+        endDate = endDateTime.ToString("ddMMyyyy");
+        return endDate;
+    }
+
+    void openPopUp()
+    {
+        if (payments == null)
+        {
+            popUp = true;
+        }
+    }
+    private void ClosePopUp()
+    {
+        popUp = false;
+    }
+    private async Task DeletePayment(Payment payment)
+    {
+        await PaymentManager.DeletePayment(payment);
+    }
+
+#line default
+#line hidden
+#nullable disable
+>>>>>>> Stashed changes
     }
 }
 #pragma warning restore 1591

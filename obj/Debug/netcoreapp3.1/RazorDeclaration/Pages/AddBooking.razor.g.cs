@@ -105,7 +105,11 @@ using Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
+<<<<<<< Updated upstream
 #line 24 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\AddBooking.razor"
+=======
+#line 23 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\AddBooking.razor"
+>>>>>>> Stashed changes
        
     private Reservation reservation = new Reservation();
     private DateTime dateTime;
@@ -113,11 +117,29 @@ using Authentication;
 
     int changeDateToInt()
     {
+<<<<<<< Updated upstream
         n = int.Parse(dateTime.ToString("ddMMyyyy"));
         return n;
     }
     protected async Task CreateBooking() {
         await ReservationManager.CreateReservation(UserService.GetUser().id, n);
+=======
+        n = dateTime.ToString("ddMMyyyy");
+        Console.WriteLine(n);
+        return n;
+    }
+    string changeHourToString()
+    {
+        hour = hourTime.ToString("HHmm");
+        Console.WriteLine(hour);
+        return hour;
+    }
+    protected async Task CreateBooking() {
+        changeDateToString(); 
+        changeHourToString();
+        await ReservationManager.CreateReservation(1/*UserService.GetUser().id*/, changeDateToString(), changeHourToString());
+        //await ReservationManager.CreateReservation(1, "02032000", "2020");
+>>>>>>> Stashed changes
         navigationManager.NavigateTo("/bookings");
     }
         void cancel() {

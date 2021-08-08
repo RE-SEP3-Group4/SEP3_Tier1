@@ -83,7 +83,11 @@ using SEP3_Tier1.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
+<<<<<<< Updated upstream
 #line 35 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Shared\NavMenu.razor"
+=======
+#line 40 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Shared\NavMenu.razor"
+>>>>>>> Stashed changes
        
     private bool collapseNavMenu = true;
 
