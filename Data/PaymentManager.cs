@@ -1,4 +1,5 @@
-﻿using SEP3_Tier1.Models;
+﻿using Newtonsoft.Json;
+using SEP3_Tier1.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,9 @@ namespace SEP3_Tier1.Data
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<List<Payment>>();
+                    var json = await response.Content.ReadAsStringAsync();
+                    var payments = JsonConvert.DeserializeObject<List<Payment>>(json);
+                    return payments;
                 }
                 else
                 {
@@ -51,7 +54,9 @@ namespace SEP3_Tier1.Data
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<bool>();
+                    var json = await response.Content.ReadAsStringAsync();
+                    var boolean = JsonConvert.DeserializeObject<bool>(json);
+                    return boolean;
                 }
                 else
                 {
@@ -66,7 +71,9 @@ namespace SEP3_Tier1.Data
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<bool>();
+                    var json = await response.Content.ReadAsStringAsync();
+                    var boolean = JsonConvert.DeserializeObject<bool>(json);
+                    return boolean;
                 }
                 else
                 {

@@ -32,7 +32,6 @@ namespace SEP3_Tier1.Data
                     var json = await response.Content.ReadAsStringAsync();
                     var user = JsonConvert.DeserializeObject<User>(json);
                     return user;
-                    //return await response.Content.ReadAsAsync<User>();
                 }
                 else
                 {
@@ -56,7 +55,9 @@ namespace SEP3_Tier1.Data
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<bool>();
+                    var json = await response.Content.ReadAsStringAsync();
+                    var boolean = JsonConvert.DeserializeObject<bool>(json);
+                    return boolean;
                 }
                 else
                 {
@@ -81,7 +82,9 @@ namespace SEP3_Tier1.Data
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<bool>();
+                    var json = await response.Content.ReadAsStringAsync();
+                    var boolean = JsonConvert.DeserializeObject<bool>(json);
+                    return boolean;
                 }
                 else
                 {
@@ -96,7 +99,9 @@ namespace SEP3_Tier1.Data
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<bool>();
+                    var json = await response.Content.ReadAsStringAsync();
+                    var boolean = JsonConvert.DeserializeObject<bool>(json);
+                    return boolean;
                 }
                 else
                 {
@@ -111,7 +116,9 @@ namespace SEP3_Tier1.Data
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<List<User>>();
+                    var json = await response.Content.ReadAsStringAsync();
+                    var users = JsonConvert.DeserializeObject<List<User>>(json);
+                    return users;
                 }
                 else
                 {
