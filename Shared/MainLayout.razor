@@ -25,6 +25,6 @@
     private User user;
     protected override async void OnInitialized()
     {
-        user = UserService.GetUser();
+        user = UserService.getInstance().GetUser();
     }
 }

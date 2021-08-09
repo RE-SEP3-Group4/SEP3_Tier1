@@ -6,13 +6,25 @@ using SEP3_Tier1.Models;
 
 namespace SEP3_Tier1.Authentication
 {
-    public class UserService 
+    public sealed class UserService 
     {
-        public static User user = null;
+        private static UserService userService = null;
+        private static User user;
+        
+        public UserService() { }
 
-        public static User GetUser() => user;
+        public static UserService getInstance()
+        {
+            if (userService == null)
+            {
+                userService = new UserService();
+            }
+            return userService;
+        }
 
-        public static void SetUser(User input)
+        public User GetUser() => user;
+
+        public void SetUser(User input)
         {
             user = input;
         }

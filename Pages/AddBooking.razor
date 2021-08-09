@@ -30,7 +30,7 @@
     private string hour;
     protected override void OnInitialized()
     {
-        user = UserService.GetUser();
+        user = UserService.getInstance().GetUser();
     }
     void console()
     {

@@ -30,7 +30,7 @@ namespace SEP3_Tier1.Authentication
             var serialisedData = await jSRuntime.InvokeAsync<string>("sessionStorage.getItem", "currentUser");
             if(serialisedData != null)
             {
-                User user = UserService.GetUser();
+                User user = UserService.getInstance().GetUser();
                 user = JsonSerializer.Deserialize<User>(serialisedData, options);
                 if(user != null)
                 {
@@ -47,13 +47,13 @@ namespace SEP3_Tier1.Authentication
             identity = SetupClaimsForUser(user);
             string serializedData = JsonSerializer.Serialize(user);
             await jSRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", serializedData);
-            UserService.SetUser(user);
+            UserService.getInstance().SetUser(user);
            
         }
 
         public void LogOut()
         {
-            UserService.SetUser(null);
+            UserService.getInstance().SetUser(null);
             var user = new ClaimsPrincipal(new ClaimsIdentity());
             jSRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", "");
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
@@ -62,7 +62,7 @@ namespace SEP3_Tier1.Authentication
         {
             List<Claim> claims = new List<Claim>();
             ClaimsIdentity identity;
-            user = UserService.GetUser();
+            user = UserService.getInstance().GetUser();
             if(user != null)
             {
                 claims.Add(new Claim(ClaimTypes.Name , user.username));

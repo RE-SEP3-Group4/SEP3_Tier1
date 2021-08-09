@@ -1,5 +1,4 @@
 ﻿@page "/index"
-@inject UserService userService
 @using Models
 @using SEP3_Tier1.Authentication 
 <h1>Hello, @user.username !</h1>
@@ -13,6 +12,6 @@ Welcome to your new app, you right now have a security level of @user.securityLe
 
     protected override void OnInitialized()
     {
-        user = UserService.GetUser();
+        user = UserService.getInstance().GetUser();
     }
 }

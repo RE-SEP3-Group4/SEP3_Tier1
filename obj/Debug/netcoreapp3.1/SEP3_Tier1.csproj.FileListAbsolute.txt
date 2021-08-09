@@ -124,3 +124,9 @@ C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\RazorDeclaration\
 C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\Razor\Pages\Payments.razor.g.cs
 C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Logout.razor.g.cs
 C:\Users\javic\source\repos\SEP3_Tier1\obj\Debug\netcoreapp3.1\Razor\Pages\Logout.razor.g.cs
+C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Logout.razor.g.cs
+C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Payments.razor.g.cs
+C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Users.razor.g.cs
+C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\obj\Debug\netcoreapp3.1\Razor\Pages\Logout.razor.g.cs
+C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\obj\Debug\netcoreapp3.1\Razor\Pages\Payments.razor.g.cs
+C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\obj\Debug\netcoreapp3.1\Razor\Pages\Users.razor.g.cs

@@ -90,7 +90,7 @@
 }
 <p>ups</p>
 @code {
-    private User user = UserService.GetUser();
+    private User user = UserService.getInstance().GetUser();
     private bool popUp = false;
     private List<User> users;
     protected override async Task OnInitializedAsync()

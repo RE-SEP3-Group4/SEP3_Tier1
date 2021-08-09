@@ -36,7 +36,7 @@
     private List<Reservation> reservations;
     protected override async Task OnInitializedAsync()
     {
-        user = UserService.GetUser();
+        user = UserService.getInstance().GetUser();
         loading = true;
         reservations = await ReservationManager.GetReservations(user.id);
         loading = false;

@@ -41,7 +41,7 @@
 
 @code {
     private bool collapseNavMenu = true;
-    private User user = UserService.GetUser();
+    private User user = UserService.getInstance().GetUser();
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
 

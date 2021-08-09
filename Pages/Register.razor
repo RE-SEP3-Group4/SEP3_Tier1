@@ -47,7 +47,7 @@
                         try
                         {
                             await UserManager.Register(user.username, user.password);
-                            UserService.SetUser(user);
+                            UserService.getInstance().SetUser(user);
                             NavigationManager.NavigateTo("/login");
                         }
                         catch (Exception e)

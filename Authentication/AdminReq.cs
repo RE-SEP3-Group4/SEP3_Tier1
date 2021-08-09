@@ -11,7 +11,7 @@ namespace SEP3_Tier1.Authentication
     public class AdminReq : IAuthorizationRequirement
     {
         
-        public User user = UserService.GetUser();
+        public User user = UserService.getInstance().GetUser();
         public AdminReq(string username)
         {
             username = user.username;

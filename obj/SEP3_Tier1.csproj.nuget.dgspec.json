@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\javic\\source\\repos\\SEP3_Tier1\\SEP3_Tier1.csproj": {}
+    "C:\\Users\\joaob\\source\\repos\\SEP3_Tier1\\SEP3_Tier1\\SEP3_Tier1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\javic\\source\\repos\\SEP3_Tier1\\SEP3_Tier1.csproj": {
+    "C:\\Users\\joaob\\source\\repos\\SEP3_Tier1\\SEP3_Tier1\\SEP3_Tier1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\javic\\source\\repos\\SEP3_Tier1\\SEP3_Tier1.csproj",
+        "projectUniqueName": "C:\\Users\\joaob\\source\\repos\\SEP3_Tier1\\SEP3_Tier1\\SEP3_Tier1.csproj",
         "projectName": "SEP3_Tier1",
-        "projectPath": "C:\\Users\\javic\\source\\repos\\SEP3_Tier1\\SEP3_Tier1.csproj",
-        "packagesPath": "C:\\Users\\javic\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\javic\\source\\repos\\SEP3_Tier1\\obj\\",
+        "projectPath": "C:\\Users\\joaob\\source\\repos\\SEP3_Tier1\\SEP3_Tier1\\SEP3_Tier1.csproj",
+        "packagesPath": "C:\\Users\\joaob\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\joaob\\source\\repos\\SEP3_Tier1\\SEP3_Tier1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\javic\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\joaob\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -67,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

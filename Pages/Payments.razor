@@ -68,14 +68,14 @@
     private string startDate, endDate;
     protected override async Task OnInitializedAsync()
     {
-        user = UserService.GetUser();
+        user = UserService.getInstance().GetUser();
         loading = true;
         payments = await PaymentManager.GetPayments(user.id);
         loading = false;
     }
     private async Task CreatePayment()
     {
-        await PaymentManager.CreatePayment(UserService.GetUser().id, changeStartDateToString(), changeEndDateToString());
+        await PaymentManager.CreatePayment(UserService.getInstance().GetUser().id, changeStartDateToString(), changeEndDateToString());
     }
     string changeStartDateToString()
     {
