@@ -105,7 +105,7 @@ using Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 61 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Payments.razor"
+#line 74 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Payments.razor"
        
     private User user;
     private Payment payment = new Payment();
@@ -114,12 +114,24 @@ using Authentication;
     private List<Payment> payments;
     private DateTime startDateTime, endDateTime;
     private string startDate, endDate;
+
+    private void Refresh(Payment payment)
+    {
+        if (payment.endDate == DateTime.Now.ToString("ddMMyyyy"))
+        {
+            payments.Remove(payment);
+        }
+    }
     protected override async Task OnInitializedAsync()
     {
         user = UserService.getInstance().GetUser();
         loading = true;
         payments = await PaymentManager.GetPayments(user.id);
         loading = false;
+
+
+
+
     }
     private async Task CreatePayment()
     {

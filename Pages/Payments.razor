@@ -2,8 +2,17 @@
 @using Data
 @using Models
 @using Authentication
-<h3>Payments</h3>
-<h2>Create new payments </h2>
+<style>
+    #btn-class{
+        display:block;
+        margin:auto;
+    }
+    #table_res {
+        margin-left: -20px;
+    }
+</style>
+<h3>Welcome to your payments!</h3>
+<h5>Here you can create a payment so that you can start making reservations!</h5>
 <button class="btn btn-primary" @onclick="openPopUp">Create</button>
 <div class="card mt-4">
     <h4 class="card-header">Payments</h4>
@@ -16,18 +25,22 @@
         @if (payments != null)
         {
             <ul>
-
-                @foreach (var payment in payments)
-                {
-                    <tr>
-                        <td>@payment.startDate</td>
-                        <td>@payment.endDate</td>
-                        <td>
-                            |
-                            <a class="btn btn-danger" @onclick="() => DeletePayment(payment)">Delete</a>
-                        </td>
-                    </tr>
-                }
+                <table id="table_res" class="table table-bordered table-striped">
+                    @foreach (var _payment in payments)
+                    {
+                    <tbody>
+                        <tr>
+                            <td class="table-info">Your subscription starts: @_payment.startDate.Insert(2, "/").Insert(5, "/")</td>
+                            <td class="table-info">Your subscription will end: @_payment.endDate.Insert(2, "/").Insert(5, "/")</td>
+                            <td class="table-danger">
+                                
+                                <button id="btn-class" class="btn btn-danger" @onclick="() => DeletePayment(_payment)">Delete</button>
+                            </td>
+                            <td><button id="btn-class" class="btn btn-primary" @onclick="() => Refresh(_payment)">Refresh</button></td>
+                        </tr>
+                    </tbody>
+                    }
+                </table>
             </ul>
         }
     </div>
@@ -66,12 +79,24 @@
     private List<Payment> payments;
     private DateTime startDateTime, endDateTime;
     private string startDate, endDate;
+
+    private void Refresh(Payment payment)
+    {
+        if (payment.endDate == DateTime.Now.ToString("ddMMyyyy"))
+        {
+            payments.Remove(payment);
+        }
+    }
     protected override async Task OnInitializedAsync()
     {
         user = UserService.getInstance().GetUser();
         loading = true;
         payments = await PaymentManager.GetPayments(user.id);
         loading = false;
+
+
+
+
     }
     private async Task CreatePayment()
     {

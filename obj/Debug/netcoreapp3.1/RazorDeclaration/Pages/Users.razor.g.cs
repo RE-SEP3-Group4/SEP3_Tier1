@@ -105,7 +105,7 @@ using Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 92 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Users.razor"
+#line 96 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Users.razor"
        
     private User user = UserService.getInstance().GetUser();
     private bool popUp = false;

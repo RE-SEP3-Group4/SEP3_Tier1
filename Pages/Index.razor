@@ -1,11 +1,22 @@
 ﻿@page "/index"
 @using Models
 @using SEP3_Tier1.Authentication 
+<style>
+    h1 , h5{
+     font-family: "San Francisco";
+     font-weight: 400;
+     src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+    }
+
+       
+
+</style>
 <h1>Hello, @user.username !</h1>
 
-Welcome to your new app, you right now have a security level of @user.securityLevel and id @user.id!
+<h5>Welcome to your new website, where you are going to be able to make a reservation to attend your fitness center. <br />
+    First of all if you haven't make a reservation is to go to the <a href="payments">payments</a> page in order to make a reservation!</h5>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+
 
 @code{
     private User user;

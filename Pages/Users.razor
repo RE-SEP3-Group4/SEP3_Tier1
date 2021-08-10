@@ -2,7 +2,7 @@
 @using Data
 @using Models
 @using Authentication
-@if(user.username == "admin") { 
+@if (user.securityLevel > 1) {
         <h3>Users</h3>
         <h3>Update an user</h3>
         <button @onclick="openPopUp">Create </button>
@@ -25,9 +25,11 @@
                     <thead>
 
                         <tr>
+                            <th>User Id</th>
                             <th>Username</th>
                             <th>Password</th>
                             <th>securityLevel</th>
+                            <th>Edit</th>
                             <th>Remove</th>
 
                         </tr>
@@ -88,7 +90,9 @@
             </div>
         }
 }
-<p>ups</p>
+@if(user.securityLevel <= 1) {
+<p>Ups... Nothing to see here</p>
+}
 @code {
     private User user = UserService.getInstance().GetUser();
     private bool popUp = false;

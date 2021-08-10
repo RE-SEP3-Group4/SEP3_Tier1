@@ -98,7 +98,7 @@ using SEP3_Tier1.Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 10 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Index.razor"
+#line 21 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Index.razor"
       
     private User user;
 

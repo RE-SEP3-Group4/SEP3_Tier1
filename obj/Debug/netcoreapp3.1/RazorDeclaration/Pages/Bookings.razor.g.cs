@@ -105,13 +105,14 @@ using Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 65 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Bookings.razor"
+#line 83 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Bookings.razor"
        
     private User user;
     private bool loading, popUp = false;
     private DateTime dateTime, hourTime;
     private string date, hour;
     private Reservation reservation = new Reservation();
+    private List<Payment> payments;
 
     private List<Reservation> reservations;
     protected override async Task OnInitializedAsync()
@@ -119,7 +120,9 @@ using Data;
         user = UserService.getInstance().GetUser();
         loading = true;
         reservations = await ReservationManager.GetReservations(user.id);
+        payments = await PaymentManager.GetPayments(user.id);
         loading = false;
+
     }
 
     private async void CreateBooking()
@@ -127,28 +130,33 @@ using Data;
         date = dateTime.ToString("ddMMyyyy");
         hour = hourTime.ToString("HHmm");
         await ReservationManager.CreateReservation(user.id, date, hour);
-        popUp = false;
     }
-    void openPopUp()
+    private async void  openPopUp()
     {
-
-        popUp = true;
+        payments = await PaymentManager.GetPayments(user.id);
+        if (payments != null) {
+            popUp = true;
+        }
 
     }
     private void ClosePopUp()
     {
+
         popUp = false;
     }
     void cancel()
     {
+
         popUp = false;
     }
-    private async Task DeleteBooking(Reservation reservation)
+    private async void DeleteBooking(Reservation reservation)
     {
-
+        reservations.Remove(reservation);
         await ReservationManager.DeleteReservation(reservation);
         reservations = await ReservationManager.GetReservations(user.id);
     }
+
+
 
 #line default
 #line hidden
