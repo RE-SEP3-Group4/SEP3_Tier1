@@ -2,37 +2,73 @@
 @using Models
 @using Authentication
 @using Data
-    <a class="btn btn-primary" href='/addBooking'>Add</a>
+<button class="btn btn-primary" @onclick="openPopUp">Create</button>
 
-<div class="card mt-4">
+<div class="card mt-2">
     <h4 class="card-header">Bookings of @user.username with id @user.id</h4>
     <div class="card-body">
-       
+
         @if (loading)
         {
             <div class="spinner-border spinner-border-sm"></div>
         }
         @if (reservations != null)
         {
-    <ul>
-        
-    @foreach (var reservation in reservations)
-    {
-        <tr>
-            <td>@reservation.date</td>
-            <td>@reservation.userID</td>
-            <td>|
-                <a class="btn btn-danger" @onclick="() => DeleteBooking(reservation)">Delete</a>
-            </td>
-        </tr>
-    }
-    </ul>
+            <ul>
+
+                @foreach (var reservation in reservations)
+                {
+                    <tr>
+                        <td>@reservation.date</td>
+                        <td>@reservation.userID</td>
+                        <td>
+                            |
+                            <a class="btn btn-danger" @onclick="() => DeleteBooking(reservation)">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </ul>
         }
     </div>
 </div>
+@if (popUp)
+{
+    <div class="modal" tabindex="-1" style="display:block" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Create payment</h3>
+                    <button type="button" class="close" @onclick="ClosePopUp">
+                        <span aria-hidden="true">X</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <EditForm Model="reservation">
+                        <div class="form-group">
+                            <label for="Name" class="control-label">Reservation for @user.username with id @user.id</label>
+                            <InputDate type="date" class="form-control" @bind-Value="dateTime" />
+                            <input type="time" class="form-control oi-timer" @bind-value="hourTime" />
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" @onclick="() => CreateBooking()">Save</button>
+                            <button type="button" class="btn btn-danger" @onclick="() => cancel()">Cancel</button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+}
+
 @code {
     private User user;
-    private bool loading;
+    private bool loading, popUp = false;
+    private DateTime dateTime, hourTime;
+    private string date, hour;
+    private Reservation reservation = new Reservation();
+
     private List<Reservation> reservations;
     protected override async Task OnInitializedAsync()
     {
@@ -41,7 +77,30 @@
         reservations = await ReservationManager.GetReservations(user.id);
         loading = false;
     }
-    private async Task DeleteBooking(Reservation reservation) {
+
+    private async void CreateBooking()
+    {
+        date = dateTime.ToString("ddMMyyyy");
+        hour = hourTime.ToString("HHmm");
+        await ReservationManager.CreateReservation(user.id, date, hour);
+        popUp = false;
+    }
+    void openPopUp()
+    {
+
+        popUp = true;
+
+    }
+    private void ClosePopUp()
+    {
+        popUp = false;
+    }
+    void cancel()
+    {
+        popUp = false;
+    }
+    private async Task DeleteBooking(Reservation reservation)
+    {
 
         await ReservationManager.DeleteReservation(reservation);
         reservations = await ReservationManager.GetReservations(user.id);

@@ -50,7 +50,7 @@ namespace SEP3_Tier1.Data
             Payment payment = new Payment(userID, startDate, endDate);
             string jsonPayment = Newtonsoft.Json.JsonConvert.SerializeObject(payment);
             StringContent content = new StringContent(jsonPayment, Encoding.UTF8, "application/json");
-            using (HttpResponseMessage response = await ApiHelper.ApiClient.PostAsJsonAsync($"{url}/payment", content))
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.PostAsync($"{url}/payment", content))
             {
                 if (response.IsSuccessStatusCode)
                 {

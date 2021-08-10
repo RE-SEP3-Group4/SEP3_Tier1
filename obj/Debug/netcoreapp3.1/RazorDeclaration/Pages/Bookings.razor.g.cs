@@ -13,84 +13,84 @@ namespace SEP3_Tier1.Pages
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
+#line 1 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
+#line 2 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
+#line 3 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
+#line 4 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
+#line 5 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
+#line 6 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
+#line 7 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
+#line 8 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
 using SEP3_Tier1;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\_Imports.razor"
+#line 9 "C:\Users\javic\source\repos\SEP3_Tier1\_Imports.razor"
 using SEP3_Tier1.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\Bookings.razor"
+#line 2 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Bookings.razor"
 using Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\Bookings.razor"
+#line 3 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Bookings.razor"
 using Authentication;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\Bookings.razor"
+#line 4 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Bookings.razor"
 using Data;
 
 #line default
@@ -105,10 +105,14 @@ using Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 33 "C:\Users\joaob\source\repos\SEP3_Tier1\SEP3_Tier1\Pages\Bookings.razor"
+#line 65 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Bookings.razor"
        
     private User user;
-    private bool loading;
+    private bool loading, popUp = false;
+    private DateTime dateTime, hourTime;
+    private string date, hour;
+    private Reservation reservation = new Reservation();
+
     private List<Reservation> reservations;
     protected override async Task OnInitializedAsync()
     {
@@ -117,7 +121,30 @@ using Data;
         reservations = await ReservationManager.GetReservations(user.id);
         loading = false;
     }
-    private async Task DeleteBooking(Reservation reservation) {
+
+    private async void CreateBooking()
+    {
+        date = dateTime.ToString("ddMMyyyy");
+        hour = hourTime.ToString("HHmm");
+        await ReservationManager.CreateReservation(user.id, date, hour);
+        popUp = false;
+    }
+    void openPopUp()
+    {
+
+        popUp = true;
+
+    }
+    private void ClosePopUp()
+    {
+        popUp = false;
+    }
+    void cancel()
+    {
+        popUp = false;
+    }
+    private async Task DeleteBooking(Reservation reservation)
+    {
 
         await ReservationManager.DeleteReservation(reservation);
         reservations = await ReservationManager.GetReservations(user.id);

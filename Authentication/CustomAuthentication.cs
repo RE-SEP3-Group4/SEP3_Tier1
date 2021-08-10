@@ -63,18 +63,13 @@ namespace SEP3_Tier1.Authentication
             List<Claim> claims = new List<Claim>();
             ClaimsIdentity identity;
             user = UserService.getInstance().GetUser();
-            if(user != null)
-            {
+            
                 claims.Add(new Claim(ClaimTypes.Name , user.username));
                 claims.Add(new Claim("http://example.org/claims/securityLevel", "securityLevel", user.securityLevel.ToString()));
                 
                 identity = new ClaimsIdentity(claims, "apiauth_type");
                 return identity;
-            }
-            claims.Add(new Claim(ClaimTypes.Name, "Not logged"));
-            claims.Add(new Claim("securityLevel", "0"));
-            identity = new ClaimsIdentity(claims, "apiauth_type");
-            return identity;
+            
         }
     }
 }
