@@ -4,8 +4,11 @@
 @using Authentication
 @if (user.securityLevel > 1) {
         <h3>Users</h3>
-        <h3>Update an user</h3>
-        <button @onclick="openPopUp">Create </button>
+        <h4>
+            Search by id <input @oninput="@((arg) => FilterById(arg))" style="width: 50px" />
+            by username <input @oninput="@((arg) => FilterByUsername(arg))" style="width: 100px" />
+            by password<input @oninput="@((arg) => FilterByPassword(arg))" style="width: 100px" />
+        </h4>
         <div>
             @if (users == null)
             {
@@ -35,7 +38,7 @@
                         </tr>
 
                     </thead>
-                    @foreach (var user in users)
+                    @foreach (var user in toShow)
                     {
                         <tbody>
 
@@ -47,7 +50,7 @@
 
                                 <td>
                                     <button class="btn btn-primary"
-                                            @onclick="(() => EditUser(user))">
+                                            @onclick="(() => EditUser(user.id))">
                                         EditUser
                                     </button>
                                 </td>
@@ -97,14 +100,16 @@
     private User user = UserService.getInstance().GetUser();
     private bool popUp = false;
     private List<User> users;
+    private List<User> toShow;
     protected override async Task OnInitializedAsync()
     {
         users = await UserManager.GetAllUsers();
+        toShow = users;
     }
-    private async Task EditUser(User _user)
+    private async Task EditUser(int userId)
     {
-        user = _user;
-        var usser = _user.id;
+
+        userId= user.id;
         popUp = true;
 
     }
@@ -141,5 +146,56 @@
     void ClosePopUp()
     {
         popUp = false;
+    }
+    private void FilterById(ChangeEventArgs args)
+    {
+        int? filterById = null;
+        try
+        {
+            filterById = int.Parse(args.Value.ToString());
+        }
+        catch (Exception e) { }
+        if (filterById != null)
+        {
+            toShow = users.Where(t => t.id == filterById).ToList();
+        }
+        else
+        {
+            toShow = users;
+        }
+    }
+    private void FilterByUsername(ChangeEventArgs args)
+    {
+        string filterByUsername = null;
+        try
+        {
+            filterByUsername = args.Value.ToString();
+        }
+        catch (Exception e) { }
+        if (filterByUsername != null)
+        {
+            toShow = users.Where(t => t.username.Contains(filterByUsername)).ToList();
+        }
+        else
+        {
+            toShow = users;
+        }
+    }
+    private void FilterByPassword(ChangeEventArgs args)
+    {
+        string filterByPassword = null;
+        try
+        {
+            filterByPassword = args.Value.ToString();
+        }
+        catch (Exception e) { }
+        if (filterByPassword != null)
+        {
+            toShow = users.Where(t => t.password.Contains(filterByPassword)).ToList();
+        }
+        else
+        {
+            toShow = users;
+        }
     }
 }

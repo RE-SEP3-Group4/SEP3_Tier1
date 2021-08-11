@@ -105,19 +105,21 @@ using Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 96 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Users.razor"
+#line 99 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Users.razor"
        
     private User user = UserService.getInstance().GetUser();
     private bool popUp = false;
     private List<User> users;
+    private List<User> toShow;
     protected override async Task OnInitializedAsync()
     {
         users = await UserManager.GetAllUsers();
+        toShow = users;
     }
-    private async Task EditUser(User _user)
+    private async Task EditUser(int userId)
     {
-        user = _user;
-        var usser = _user.id;
+
+        userId= user.id;
         popUp = true;
 
     }
@@ -154,6 +156,57 @@ using Authentication;
     void ClosePopUp()
     {
         popUp = false;
+    }
+    private void FilterById(ChangeEventArgs args)
+    {
+        int? filterById = null;
+        try
+        {
+            filterById = int.Parse(args.Value.ToString());
+        }
+        catch (Exception e) { }
+        if (filterById != null)
+        {
+            toShow = users.Where(t => t.id == filterById).ToList();
+        }
+        else
+        {
+            toShow = users;
+        }
+    }
+    private void FilterByUsername(ChangeEventArgs args)
+    {
+        string filterByUsername = null;
+        try
+        {
+            filterByUsername = args.Value.ToString();
+        }
+        catch (Exception e) { }
+        if (filterByUsername != null)
+        {
+            toShow = users.Where(t => t.username.Contains(filterByUsername)).ToList();
+        }
+        else
+        {
+            toShow = users;
+        }
+    }
+    private void FilterByPassword(ChangeEventArgs args)
+    {
+        string filterByPassword = null;
+        try
+        {
+            filterByPassword = args.Value.ToString();
+        }
+        catch (Exception e) { }
+        if (filterByPassword != null)
+        {
+            toShow = users.Where(t => t.password.Contains(filterByPassword)).ToList();
+        }
+        else
+        {
+            toShow = users;
+        }
     }
 
 #line default

@@ -95,7 +95,7 @@ using SEP3_Tier1.Authentication;
     protected override async void OnInitialized()
     {
         authenticationStateProvider.LogOut();
-        NavigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo("/login");
     }
 
 #line default

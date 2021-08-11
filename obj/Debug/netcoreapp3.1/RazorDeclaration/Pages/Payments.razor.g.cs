@@ -105,13 +105,14 @@ using Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 74 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Payments.razor"
+#line 77 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Payments.razor"
        
     private User user;
     private Payment payment = new Payment();
     private bool loading = false;
     private bool popUp = false;
     private List<Payment> payments;
+    private List<Payment> toShow;
     private DateTime startDateTime, endDateTime;
     private string startDate, endDate;
 
@@ -129,7 +130,7 @@ using Authentication;
         payments = await PaymentManager.GetPayments(user.id);
         loading = false;
 
-
+        toShow = payments;
 
 
     }
@@ -161,6 +162,40 @@ using Authentication;
     private async Task DeletePayment(Payment payment)
     {
         await PaymentManager.DeletePayment(payment);
+    }
+    private void FilterByDate(ChangeEventArgs args)
+    {
+        string filterByStartDate = null;
+        try
+        {
+            filterByStartDate = args.Value.ToString();
+        }
+        catch (Exception e) { }
+        if (filterByStartDate != null)
+        {
+            toShow = payments.Where(t => t.startDate.Contains(filterByStartDate)).ToList();
+        }
+        else
+        {
+            toShow = payments;
+        }
+    }
+    private void FilterByEndDate(ChangeEventArgs args)
+    {
+        string filterByEndDate = null;
+        try
+        {
+            filterByEndDate = args.Value.ToString();
+        }
+        catch (Exception e) { }
+        if (filterByEndDate != null)
+        {
+            toShow = payments.Where(t => t.startDate.Contains(filterByEndDate)).ToList();
+        }
+        else
+        {
+            toShow = payments;
+        }
     }
 
 #line default

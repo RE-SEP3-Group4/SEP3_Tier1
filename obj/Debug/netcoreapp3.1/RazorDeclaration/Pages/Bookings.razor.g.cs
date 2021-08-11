@@ -105,7 +105,7 @@ using Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 83 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Bookings.razor"
+#line 90 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Bookings.razor"
        
     private User user;
     private bool loading, popUp = false;
@@ -115,12 +115,14 @@ using Data;
     private List<Payment> payments;
 
     private List<Reservation> reservations;
+    private List<Reservation> toShow;
     protected override async Task OnInitializedAsync()
     {
         user = UserService.getInstance().GetUser();
         loading = true;
         reservations = await ReservationManager.GetReservations(user.id);
         payments = await PaymentManager.GetPayments(user.id);
+        toShow = reservations;
         loading = false;
 
     }
@@ -151,11 +153,46 @@ using Data;
     }
     private async void DeleteBooking(Reservation reservation)
     {
-        reservations.Remove(reservation);
+
         await ReservationManager.DeleteReservation(reservation);
+        reservations.Remove(reservation);
         reservations = await ReservationManager.GetReservations(user.id);
     }
-
+    
+    private void FilterByDate(ChangeEventArgs args)
+    {
+        string filterByDate = null;
+        try
+        {
+            filterByDate = args.Value.ToString();
+        }
+        catch (Exception e) { }
+        if (filterByDate != null)
+        {
+            toShow = reservations.Where(t => t.date.Contains(filterByDate)).ToList();
+        }
+        else
+        {
+            toShow = reservations;
+        }
+    }
+    private void FilterByHour(ChangeEventArgs args)
+    {
+        string filterByHour = null;
+        try
+        {
+            filterByHour = args.Value.ToString();
+        }
+        catch (Exception e) { }
+        if (filterByHour != null)
+        {
+            toShow = reservations.Where(t => t.hour.Contains(filterByHour)).ToList();
+        }
+        else
+        {
+            toShow = reservations;
+        }
+    }
 
 
 #line default

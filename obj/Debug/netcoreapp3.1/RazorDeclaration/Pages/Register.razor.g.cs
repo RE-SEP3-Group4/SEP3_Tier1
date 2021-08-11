@@ -119,7 +119,7 @@ using Authentication;
                         {
                             await UserManager.Register(user.username, user.password);
                             UserService.getInstance().SetUser(user);
-                            NavigationManager.NavigateTo("/login");
+                            NavigationManager.NavigateTo("/");
                         }
                         catch (Exception e)
                         {

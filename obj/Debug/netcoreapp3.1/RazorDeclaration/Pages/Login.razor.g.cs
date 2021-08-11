@@ -120,9 +120,8 @@ using Authentication;
             try
             {
                 UserService.getInstance().SetUser(await UserManager.Login(usern, pass));
-                NavigationManager.NavigateTo("/index");
-       
                 
+       
                 if (UserService.getInstance().GetUser().id != 0)
                 {
                     NavigationManager.NavigateTo("/index");

@@ -10,7 +10,9 @@
     #table_res{
         margin-left:-20px;
     }
-    
+    #search{
+        margin-top: 25px;
+    }
 </style>
 <h3>Welcome to your reservations!</h3>
 <h5>In this page you will be able to see and manage your reservations.<br /> In order to so first you will need to make a suscription to the gym. If you haven't done it please follow this <a href="payments">link</a></h5>
@@ -20,34 +22,39 @@
 }
 
 <div class="card mt-2">
-    <h4 class="card-header">Bookings of @user.username with id @user.id</h4>
-    <div class="card-body">
+    <h4 class="card-header">
+        Bookings of @user.username   search by date <input @oninput="@((arg) => FilterByDate(arg))" style="width: 100px" />
+       by hour <input @oninput="@((arg) => FilterByHour(arg))" style="width: 100px" />
+    </h4>
+ 
+    
+        <div class="card-body">
 
-        @if (loading)
-        {
-            <div class="spinner-border spinner-border-sm"></div>
-        }
-        @if (reservations != null)
-        {
-            <ul>
-                <table id="table_res" class="table table-bordered table-striped">
-                    @foreach (var reservation in reservations)
-                    {
-                        <tr>
-                            <td class="table-info">Date of reservation: @reservation.date.Insert(2, "/").Insert(5, "/")</td>
+            @if (loading)
+            {
+                <div class="spinner-border spinner-border-sm"></div>
+            }
+            @if (reservations != null)
+            {
+                <ul>
+                    <table id="table_res" class="table table-bordered table-striped">
+                        @foreach (var reservation in toShow)
+                        {
+                            <tr>
+                                <td class="table-info">Date of reservation: @reservation.date.Insert(2, "/").Insert(5, "/")</td>
 
-                            <td class="table-info">Time of reservation: @reservation.hour.Insert(2, ":")</td>
+                                <td class="table-info">Time of reservation: @reservation.hour.Insert(2, ":")</td>
 
-                            <td class="table-danger">
+                                <td class="table-danger">
 
-                                <button id="btn-class" class="btn btn-danger" @onclick="() => DeleteBooking(reservation)">Delete</button>
-                            </td>
-                        </tr>
-                    }
-                </table>
-            </ul>
-        }
-    </div>
+                                    <button id="btn-class" class="btn btn-danger" @onclick="() => DeleteBooking(reservation)">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </ul>
+            }
+        </div>
 </div>
 @if (popUp)
 {
@@ -89,12 +96,14 @@
     private List<Payment> payments;
 
     private List<Reservation> reservations;
+    private List<Reservation> toShow;
     protected override async Task OnInitializedAsync()
     {
         user = UserService.getInstance().GetUser();
         loading = true;
         reservations = await ReservationManager.GetReservations(user.id);
         payments = await PaymentManager.GetPayments(user.id);
+        toShow = reservations;
         loading = false;
 
     }
@@ -125,10 +134,45 @@
     }
     private async void DeleteBooking(Reservation reservation)
     {
-        reservations.Remove(reservation);
+
         await ReservationManager.DeleteReservation(reservation);
+        reservations.Remove(reservation);
         reservations = await ReservationManager.GetReservations(user.id);
     }
-
+    
+    private void FilterByDate(ChangeEventArgs args)
+    {
+        string filterByDate = null;
+        try
+        {
+            filterByDate = args.Value.ToString();
+        }
+        catch (Exception e) { }
+        if (filterByDate != null)
+        {
+            toShow = reservations.Where(t => t.date.Contains(filterByDate)).ToList();
+        }
+        else
+        {
+            toShow = reservations;
+        }
+    }
+    private void FilterByHour(ChangeEventArgs args)
+    {
+        string filterByHour = null;
+        try
+        {
+            filterByHour = args.Value.ToString();
+        }
+        catch (Exception e) { }
+        if (filterByHour != null)
+        {
+            toShow = reservations.Where(t => t.hour.Contains(filterByHour)).ToList();
+        }
+        else
+        {
+            toShow = reservations;
+        }
+    }
 
 }
