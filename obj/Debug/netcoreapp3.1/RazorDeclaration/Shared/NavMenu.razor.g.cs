@@ -97,7 +97,7 @@ using SEP3_Tier1.Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 37 "C:\Users\javic\source\repos\SEP3_Tier1\Shared\NavMenu.razor"
+#line 47 "C:\Users\javic\source\repos\SEP3_Tier1\Shared\NavMenu.razor"
        
     private bool collapseNavMenu = true;
     private User user = UserService.getInstance().GetUser();

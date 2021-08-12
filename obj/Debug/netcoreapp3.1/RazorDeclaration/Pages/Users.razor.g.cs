@@ -105,7 +105,7 @@ using Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 99 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Users.razor"
+#line 94 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Users.razor"
        
     private User user = UserService.getInstance().GetUser();
     private bool popUp = false;
@@ -116,10 +116,10 @@ using Authentication;
         users = await UserManager.GetAllUsers();
         toShow = users;
     }
-    private async Task EditUser(int userId)
+    private async Task EditUser(User _user)
     {
-
-        userId= user.id;
+        _user = user;
+        var usser = _user;
         popUp = true;
 
     }

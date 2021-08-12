@@ -32,7 +32,7 @@
                             <th>Username</th>
                             <th>Password</th>
                             <th>securityLevel</th>
-                            <th>Edit</th>
+                            
                             <th>Remove</th>
 
                         </tr>
@@ -48,12 +48,7 @@
                                 <td>@user.password</td>
                                 <td>@user.securityLevel</td>
 
-                                <td>
-                                    <button class="btn btn-primary"
-                                            @onclick="(() => EditUser(user.id))">
-                                        EditUser
-                                    </button>
-                                </td>
+                             
                                 <td>
                                     <button @onclick="@((() => RemoveUser(user.id)))">
                                         <i class="oi oi-trash" style="color: black" />
@@ -106,10 +101,10 @@
         users = await UserManager.GetAllUsers();
         toShow = users;
     }
-    private async Task EditUser(int userId)
+    private async Task EditUser(User _user)
     {
-
-        userId= user.id;
+        _user = user;
+        var usser = _user;
         popUp = true;
 
     }

@@ -113,15 +113,17 @@ using Data;
     private string date, hour;
     private Reservation reservation = new Reservation();
     private List<Payment> payments;
-
+    private string test;
     private List<Reservation> reservations;
     private List<Reservation> toShow;
     protected override async Task OnInitializedAsync()
     {
+
         user = UserService.getInstance().GetUser();
         loading = true;
-        reservations = await ReservationManager.GetReservations(user.id);
         payments = await PaymentManager.GetPayments(user.id);
+        reservations = await ReservationManager.GetReservations(user.id);
+
         toShow = reservations;
         loading = false;
 
@@ -132,11 +134,14 @@ using Data;
         date = dateTime.ToString("ddMMyyyy");
         hour = hourTime.ToString("HHmm");
         await ReservationManager.CreateReservation(user.id, date, hour);
+        OnInitializedAsync();
+        ClosePopUp();
     }
-    private async void  openPopUp()
+    private async void openPopUp()
     {
         payments = await PaymentManager.GetPayments(user.id);
-        if (payments != null) {
+        if (payments != null)
+        {
             popUp = true;
         }
 
@@ -158,7 +163,7 @@ using Data;
         reservations.Remove(reservation);
         reservations = await ReservationManager.GetReservations(user.id);
     }
-    
+
     private void FilterByDate(ChangeEventArgs args)
     {
         string filterByDate = null;

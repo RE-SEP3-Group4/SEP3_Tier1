@@ -105,7 +105,7 @@ using Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 77 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Payments.razor"
+#line 75 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Payments.razor"
        
     private User user;
     private Payment payment = new Payment();
@@ -137,6 +137,8 @@ using Authentication;
     private async Task CreatePayment()
     {
         await PaymentManager.CreatePayment(UserService.getInstance().GetUser().id, changeStartDateToString(), changeEndDateToString());
+        ClosePopUp();
+        OnInitializedAsync();
     }
     string changeStartDateToString()
     {

@@ -76,12 +76,13 @@ using SEP3_Tier1.Shared;
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Logout.razor"
+#line 4 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Logout.razor"
 using SEP3_Tier1.Authentication;
 
 #line default
 #line hidden
 #nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/logout")]
     public partial class Logout : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -90,19 +91,18 @@ using SEP3_Tier1.Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 7 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Logout.razor"
+#line 8 "C:\Users\javic\source\repos\SEP3_Tier1\Pages\Logout.razor"
        
     protected override async void OnInitialized()
     {
-        authenticationStateProvider.LogOut();
-        NavigationManager.NavigateTo("/login");
+        UserService.getInstance().SetUser(null);
+        NavigationManager.NavigateTo("/");
     }
 
 #line default
 #line hidden
 #nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private CustomAuthentication authenticationStateProvider { get; set; }
     }
 }
 #pragma warning restore 1591

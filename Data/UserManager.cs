@@ -51,7 +51,7 @@ namespace SEP3_Tier1.Data
             User user = new User(0, username, password, 0);
             string jsonUser = Newtonsoft.Json.JsonConvert.SerializeObject(user);
             StringContent content = new StringContent(jsonUser, Encoding.UTF8, "application/json");
-            using (HttpResponseMessage response = await ApiHelper.ApiClient.PostAsJsonAsync($"{url}/user", content))
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.PostAsync($"{url}/user", content))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -78,7 +78,7 @@ namespace SEP3_Tier1.Data
             User user = new User(id, username, password, 0);
             string jsonUser = Newtonsoft.Json.JsonConvert.SerializeObject(user);
             StringContent content = new StringContent(jsonUser, Encoding.UTF8, "application/json");
-            using (HttpResponseMessage response = await ApiHelper.ApiClient.PutAsJsonAsync($"{url}/user?id={id}", content))
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.PutAsync($"{url}/user?id={id}", content))
             {
                 if (response.IsSuccessStatusCode)
                 {

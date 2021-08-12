@@ -35,10 +35,7 @@
                         <tr>
                             <td class="table-info">Your subscription starts: @_payment.startDate.Insert(2, "/").Insert(5, "/")</td>
                             <td class="table-info">Your subscription will end: @_payment.endDate.Insert(2, "/").Insert(5, "/")</td>
-                            <td class="table-danger">
-                                
-                                <button id="btn-class" class="btn btn-danger" @onclick="() => DeletePayment(_payment)">Delete</button>
-                            </td>
+                            
                             <td><button id="btn-class" class="btn btn-primary" @onclick="() => Refresh(_payment)">Refresh</button></td>
                         </tr>
                     </tbody>
@@ -61,10 +58,11 @@
                 </div>
                 <div class="modal-body">
                     <EditForm Model="payment">
+                        <p>Start period subscription</p>
                         <InputDate type="date" class="form-control" @bind-Value="startDateTime" />
+                        <p>End period subscription</p>
                         <InputDate type="date" class="form-control" @bind-Value="endDateTime" />
                         <button class="btn btn-primary" @onclick="CreatePayment"> Save</button>
-                        <p>@changeStartDateToString()</p>
                     </EditForm>
                 </div>
             </div>
@@ -105,6 +103,8 @@
     private async Task CreatePayment()
     {
         await PaymentManager.CreatePayment(UserService.getInstance().GetUser().id, changeStartDateToString(), changeEndDateToString());
+        ClosePopUp();
+        OnInitializedAsync();
     }
     string changeStartDateToString()
     {

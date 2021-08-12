@@ -2,20 +2,23 @@
 @using Models
 @using Authentication
 @using Data
- <style >
+<style>
     #btn-class {
         display: block;
         margin: auto;
     }
-    #table_res{
-        margin-left:-20px;
+
+    #table_res {
+        margin-left: -20px;
     }
-    #search{
+
+    #search {
         margin-top: 25px;
     }
 </style>
 <h3>Welcome to your reservations!</h3>
-<h5>In this page you will be able to see and manage your reservations.<br /> In order to so first you will need to make a suscription to the gym. If you haven't done it please follow this <a href="payments">link</a></h5>
+<h5>In this page you will be able to see and manage your reservations.<br /> In order to so first you will need to make a suscription to the gym. If you haven't done it please follow this <a id ="test"href="payments">link</a></h5>
+
 @if (payments != null)
 {
     <button class="btn btn-primary" @onclick="openPopUp">Create</button>
@@ -24,37 +27,34 @@
 <div class="card mt-2">
     <h4 class="card-header">
         Bookings of @user.username   search by date <input @oninput="@((arg) => FilterByDate(arg))" style="width: 100px" />
-       by hour <input @oninput="@((arg) => FilterByHour(arg))" style="width: 100px" />
+        by hour <input @oninput="@((arg) => FilterByHour(arg))" style="width: 100px" />
     </h4>
- 
-    
-        <div class="card-body">
 
-            @if (loading)
-            {
-                <div class="spinner-border spinner-border-sm"></div>
-            }
-            @if (reservations != null)
-            {
-                <ul>
-                    <table id="table_res" class="table table-bordered table-striped">
-                        @foreach (var reservation in toShow)
-                        {
-                            <tr>
-                                <td class="table-info">Date of reservation: @reservation.date.Insert(2, "/").Insert(5, "/")</td>
 
-                                <td class="table-info">Time of reservation: @reservation.hour.Insert(2, ":")</td>
+    <div class="card-body">
 
-                                <td class="table-danger">
+        @if (loading)
+        {
+            <div class="spinner-border spinner-border-sm"></div>
+        }
+        @if (reservations != null)
+        {
+            <ul>
+                <table id="table_res" class="table table-bordered table-striped">
+                    @foreach (var reservation in toShow)
+                    {
+                        <tr>
+                            <td class="table-info">Date of reservation: @reservation.date.Insert(2, "/").Insert(5, "/")</td>
 
-                                    <button id="btn-class" class="btn btn-danger" @onclick="() => DeleteBooking(reservation)">Delete</button>
-                                </td>
-                            </tr>
-                        }
-                    </table>
-                </ul>
-            }
-        </div>
+                            <td class="table-info">Time of reservation: @reservation.hour.Insert(2, ":")</td>
+
+                         
+                        </tr>
+                    }
+                </table>
+            </ul>
+        }
+    </div>
 </div>
 @if (popUp)
 {
@@ -94,15 +94,17 @@
     private string date, hour;
     private Reservation reservation = new Reservation();
     private List<Payment> payments;
-
+    private string test;
     private List<Reservation> reservations;
     private List<Reservation> toShow;
     protected override async Task OnInitializedAsync()
     {
+
         user = UserService.getInstance().GetUser();
         loading = true;
-        reservations = await ReservationManager.GetReservations(user.id);
         payments = await PaymentManager.GetPayments(user.id);
+        reservations = await ReservationManager.GetReservations(user.id);
+
         toShow = reservations;
         loading = false;
 
@@ -113,11 +115,14 @@
         date = dateTime.ToString("ddMMyyyy");
         hour = hourTime.ToString("HHmm");
         await ReservationManager.CreateReservation(user.id, date, hour);
+        OnInitializedAsync();
+        ClosePopUp();
     }
-    private async void  openPopUp()
+    private async void openPopUp()
     {
         payments = await PaymentManager.GetPayments(user.id);
-        if (payments != null) {
+        if (payments != null)
+        {
             popUp = true;
         }
 
@@ -139,7 +144,7 @@
         reservations.Remove(reservation);
         reservations = await ReservationManager.GetReservations(user.id);
     }
-    
+
     private void FilterByDate(ChangeEventArgs args)
     {
         string filterByDate = null;
